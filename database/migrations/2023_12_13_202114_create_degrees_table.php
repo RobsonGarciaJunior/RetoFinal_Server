@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('degrees', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->unsignedBigInteger('department_id');
+            $table->foreign('department_id')->references('id')->on('departments');
             $table->timestamps();
         });
     }

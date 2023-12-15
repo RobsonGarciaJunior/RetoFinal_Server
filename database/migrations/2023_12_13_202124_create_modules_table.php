@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('modules', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->bigInteger('horas');
-            $table->bigInteger('codigo')->unique();
+            $table->bigInteger('hours');
+            $table->bigInteger('code')->unique();
             $table->timestamps();
         });
     }

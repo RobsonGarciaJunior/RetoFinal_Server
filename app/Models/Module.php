@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Module extends Model
 {
     use HasFactory;
+
+    public function degrees() {
+        return $this->belongsToMany(Degree::class, 'degree_module', 'degree_id', 'module_id');
+    }
 }

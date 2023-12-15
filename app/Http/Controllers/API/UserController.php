@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
 
 class UserController extends Controller
 {
@@ -12,15 +15,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $users = User::orderBy('created_at')->get();
+        return response()->json(['users' => $users])
+            ->setStatusCode(Response::HTTP_OK);
     }
 
     /**
@@ -40,21 +37,11 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(User $user)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, User $user)
     {
-        $user->password = $request->pass;
-        $user->save();
-
+        //
     }
 
     /**
@@ -64,5 +51,4 @@ class UserController extends Controller
     {
         //
     }
-
 }

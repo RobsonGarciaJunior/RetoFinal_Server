@@ -1,0 +1,14 @@
+#logo {
+    max-width: 50px;
+    height: auto;
+}
+.navbar{
+    background-color: #1A4D8B;
+}
+.nav-item .nav-link{
+    color:white
+}
+.card .card-header{
+    background-color:  #2B6BB5;
+    color: white
+}

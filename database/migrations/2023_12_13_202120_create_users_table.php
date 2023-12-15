@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('DNI');
             $table->string('name');
             $table->string('surname');
-            $table->bigInteger('number1');
-            $table->bigInteger('number2')->nullable();
+            $table->bigInteger('phoneNumber1');
+            $table->bigInteger('phoneNumber2')->nullable();
+            $table->string('address');
             $table->binary('photo')->nullable();
             $table->boolean('FCTDUAL')->nullable();
             $table->string('email')->unique();
@@ -24,10 +26,8 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-            $table->unsignedBigInteger('department_id');
+            $table->unsignedBigInteger('department_id')->nullable();
             $table->foreign('department_id')->references('id')->on('departments');
-            $table->unsignedBigInteger('degree_id')->nullable();
-            $table->foreign('degree_id')->references('id')->on('degrees');
         });
     }
 

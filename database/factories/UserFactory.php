@@ -29,20 +29,41 @@ class UserFactory extends Factory
         $pass = Hash::make('elorrieta00');
         $firstName = $this->faker->firstName;
         $lastName = $this->faker->lastName;
-        return [
-            'name' => $firstName,
-            'surname' => $lastName,
-            'number1' => fake()->unique()->numerify('##########'),
-            'number2' => fake()->unique()->numerify('##########'),
-            'photo' => null,
-            'FCTDUAL' => $this->faker->boolean(),
-            'email' => $firstName.$lastName.'@elorrieta-errekamari.com',
-            'email_verified_at' => now(),
-            'password' => $pass,
-            'remember_token' => Str::random(10),
-            'department_id' => Department::all()->random()->id,
-            'degree_id' => Degree::all()->random()->id,
-        ];
+        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $dni = mt_rand(1000000, 99999999).$characters[rand(0, strlen($characters) - 1)];
+        if (User::all()->count() <= 50) {
+            return [
+                'DNI' => $dni,
+                'name' => $firstName,
+                'surname' => $lastName,
+                'number1' => fake()->unique()->numerify('##########'),
+                'number2' => fake()->unique()->numerify('##########'),
+                'address' => $this->faker->address(),
+                'photo' => null,
+                'FCTDUAL' => $this->faker->boolean(),
+                'email' => $firstName . $lastName . '@elorrieta-errekamari.com',
+                'email_verified_at' => now(),
+                'password' => $pass,
+                'remember_token' => Str::random(10),
+                'department_id' => Department::all()->random()->id,
+                'degree_id' => Degree::all()->random()->id,
+            ];
+        } else {
+            return [
+                'name' => $firstName,
+                'surname' => $lastName,
+                'number1' => fake()->unique()->numerify('##########'),
+                'number2' => fake()->unique()->numerify('##########'),
+                'photo' => null,
+                'FCTDUAL' => null,
+                'email' => $firstName . $lastName . '@elorrieta-errekamariprofesor.com',
+                'email_verified_at' => now(),
+                'password' => $pass,
+                'remember_token' => Str::random(10),
+                'department_id' => Department::all()->random()->id,
+                'degree_id' => null,
+            ];
+        }
     }
 
     /**

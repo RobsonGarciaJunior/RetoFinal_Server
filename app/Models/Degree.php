@@ -11,9 +11,10 @@ class Degree extends Model
 {
     use HasFactory;
 
-    public function users(): HasMany
-    {
-        return $this->hasMany(User::class, 'degree_id');
+    public function users() {
+        return $this->belongsToMany(User::class, 'user_degree', 'user_id', 'degree_id');
     }
-
+    public function modules() {
+        return $this->belongsToMany(Module::class, 'degree_module', 'degree_id', 'module_id');
+    }
 }
