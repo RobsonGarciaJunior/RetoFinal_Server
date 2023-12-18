@@ -19,7 +19,7 @@ return new class extends Migration
             $table->bigInteger('phoneNumber1');
             $table->bigInteger('phoneNumber2')->nullable();
             $table->string('address');
-            $table->binary('photo')->nullable();
+            $table->string('photo')->nullable();
             $table->boolean('FCTDUAL')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

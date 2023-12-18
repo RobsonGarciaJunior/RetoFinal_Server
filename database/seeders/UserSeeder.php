@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Role;
+use App\Models\Module;
 use App\Models\Degree;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -34,7 +35,7 @@ class UserSeeder extends Seeder
             'created_at' => now(),
         ]);
         #Obtenemos el rol de administrador
-        $rol = Role::find(0);
+        $rol = Role::find(1);
         #Obtenemos el usuario creado
         $user = User::find(1);
         $user->roles()->attach($rol);
@@ -48,17 +49,19 @@ class UserSeeder extends Seeder
             'address' => 'Calle Nueva Portal nº 7 6D',
             'photo' => "sds7ds8d7s9ds8d9",
             'FCTDUAL' => null,
-            'email' => 'David@elorrieta-errekamari.com',
+            'email' => 'david@elorrieta-errekamari.com',
             'email_verified_at' => null,
             'password' => Hash::make('elorrieta00'),
             'department_id' => 1,
             'created_at' => now(),
         ]);
         #Obtenemos el rol de profesor
-        $rol = Role::find(1);
+        $rol = Role::find(2);
         #Obtenemos el usuario creado
         $user = User::find(2);
+        $module = Module::all();
         $user->roles()->attach($rol);
+        $user->modules()->attach($module);
 
         DB::table('users')->insert([
             'DNI' => '32819209C',
@@ -69,7 +72,7 @@ class UserSeeder extends Seeder
             'address' => 'Avenida ABC Portal nº 1 4I',
             'photo' => "dsdsxc9a9s0ew",
             'FCTDUAL' => true,
-            'email' => 'Robson@elorrieta-errekamari.com',
+            'email' => 'robson@elorrieta-errekamari.com',
             'email_verified_at' => null,
             'password' => Hash::make('elorrieta00'),
             'department_id' => 1,
@@ -78,11 +81,13 @@ class UserSeeder extends Seeder
         #Obtenemos el rol de alumno
         $rol = Role::find(3);
         #obtenemos el ciclo que cursará el alumno
-        $degree = Degree::inRandomOrder()->first();
+        $degree = Degree::find(2);
+        $module = Module::all();
         #Obtenemos el usuario creado
-        $user = User::find(2);
-        $user->roles()->attach($rol);
+        $user = User::find(3);
         $user->degrees()->attach($degree);
+        $user->roles()->attach($rol);
+        $user->modules()->attach($module);
 
         #FACTORY
         /*

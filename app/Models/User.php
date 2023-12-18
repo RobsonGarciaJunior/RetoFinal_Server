@@ -19,9 +19,15 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'DNI',
         'name',
+        'surname',
         'email',
         'password',
+        'phoneNumber1',
+        'phoneNumber2',
+        'address',
+        'photo',
         'departmentId'
     ];
 
@@ -59,7 +65,11 @@ class User extends Authenticatable
     }
 
     public function degrees() {
-        return $this->belongsToMany(Degree::class, 'user_degree', 'user_id', 'degree_id');
+        return $this->belongsToMany(Degree::class, 'user_degree', 'user_id', 'degree_id')->withPivot('year_of_degree', 'registration_date');
+    }
+
+    public function modules() {
+        return $this->belongsToMany(Module::class, 'user_module', 'user_id', 'module_id');
     }
 
 }
