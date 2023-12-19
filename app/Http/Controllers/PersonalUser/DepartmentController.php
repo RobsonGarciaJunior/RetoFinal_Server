@@ -1,18 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\PersonalUser;
+use App\Http\Controllers\Controller;
 
-use App\Models\Degree;
+use App\Models\Department;
 use Illuminate\Http\Request;
 
-class DegreeController extends Controller
+class DepartmentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $departments = Department::all();
+        return view('departments.index',['departments' => $departments]);
     }
 
     /**
@@ -34,15 +36,15 @@ class DegreeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Degree $degree)
+    public function show(Department $department)
     {
-        //
+        return view('departments.show',['department'=>$department]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Degree $degree)
+    public function edit(Department $department)
     {
         //
     }
@@ -50,7 +52,7 @@ class DegreeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Degree $degree)
+    public function update(Request $request, Department $department)
     {
         //
     }
@@ -58,7 +60,7 @@ class DegreeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Degree $degree)
+    public function destroy(Department $department)
     {
         //
     }

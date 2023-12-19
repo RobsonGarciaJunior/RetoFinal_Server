@@ -96,8 +96,8 @@ class AuthController extends Controller
         // FIXME: queremos dejar más dispositivos?
         // $user->tokens()->delete();
 
-        $degrees = $user->degrees()->withOnly("modules")->get();
-        //unset($degrees->pivot);
+        $degrees = $user->degrees()->with("modules")->get();
+        $degrees->makeHidden(['pivot']);
 
         return response()->json([
             'id' => $user->id,

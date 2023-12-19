@@ -3,7 +3,7 @@
     height: auto;
 }
 .navbar{
-    background-color: #7CA8D5;
+    background-color: rgb(60, 180, 229, 0.6);
 }
 .nav-item .nav-link{
     color:white
@@ -11,4 +11,18 @@
 .card .card-header{
     background-color:  #2B6BB5;
     color: white
+}
+#card-departamento {
+    background-color: rgba(0, 138, 171, 0.7);
+    color: white;
+}
+#card-ciclo {
+    background-color: rgba(0, 138, 171, 0.7);
+    color: white;
+}
+#link {
+    color: white;
+}
+#link:hover {
+    color: #211261;
 }

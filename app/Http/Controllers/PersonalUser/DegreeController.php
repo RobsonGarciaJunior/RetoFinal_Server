@@ -1,19 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\PersonalUser;
+use App\Http\Controllers\Controller;
 
-use App\Models\User;
+use App\Models\Degree;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class DegreeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $users = User::all();
-        return view('users.index',['users' => $users]);
+        $degrees = Degree::all();
+        return view('degrees.index',['degrees' => $degrees]);
     }
 
     /**
@@ -35,7 +36,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show(Degree $degree)
     {
         //
     }
@@ -43,7 +44,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit(Degree $degree)
     {
         //
     }
@@ -51,19 +52,16 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, Degree $degree)
     {
-        $user->password = $request->pass;
-        $user->save();
-
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy(Degree $degree)
     {
         //
     }
-
 }

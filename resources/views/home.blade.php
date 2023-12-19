@@ -6,7 +6,6 @@
         <h3>Espacio personal de {{ Auth::user()->name }}</h3>
     </div>
     <div class="accordion" id="accordionGenerico">
-
         @if(auth()->user()->roles->contains(3))
             @foreach (auth()->user()->degrees as $degree)
                 <div class="accordion-item">

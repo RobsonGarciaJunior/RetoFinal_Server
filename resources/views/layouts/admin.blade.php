@@ -19,7 +19,7 @@
  <!-- Navbar-->
  <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="{{ url('/') }}">
-        <img id="logo" src="{{ asset('img/logo.png') }}" class="img-fluid" alt="Logo">
+        <img id="logo" src="{{ asset('img/EEM-logo-color.svg') }}" class="img-fluid" alt="Logo">
     </a>
     <ul class="navbar-nav flex-row d-md-none">
       <li class="nav-item text-nowrap">

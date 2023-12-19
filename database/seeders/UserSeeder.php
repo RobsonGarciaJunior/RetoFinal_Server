@@ -19,6 +19,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+
         DB::table('users')->insert([
             'DNI' => '12345678A',
             'name' => 'Joana',
@@ -82,21 +83,35 @@ class UserSeeder extends Seeder
         $rol = Role::find(3);
         #obtenemos el ciclo que cursará el alumno
         $degree = Degree::find(2);
+        $degree2 = Degree::find(4);
         $module = Module::all();
         #Obtenemos el usuario creado
         $user = User::find(3);
         $user->degrees()->attach($degree);
+        $user->degrees()->attach($degree2);
         $user->roles()->attach($rol);
         $user->modules()->attach($module);
 
-        #FACTORY
         /*
+#FACTORY
+        #Creamos 1 admin
+        User::factory()->count(1)->create();
+        $rol = Role::find(1);
+
+        #Obtenemos los profesores creados
+        $users = User::latest()->get();
+
+        #Les asignamos su rol de profesor
+        foreach ($users as $user) {
+            $user->roles()->attach($rol);
+        }
+
         #Creamos 50 alumnos
         User::factory()->count(50)->create();
         $rol = Role::find(3);
 
         #Obtenemos los alumnos creados
-        $users = User::all();
+        $users = User::latest()->limit(50)->get();
 
         #Les asignamos su rol de alumno
         foreach ($users as $user) {
@@ -116,6 +131,6 @@ class UserSeeder extends Seeder
         foreach ($users as $user) {
             $user->roles()->attach($rol);
         }
-        */
+*/
     }
 }

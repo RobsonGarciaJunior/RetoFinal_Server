@@ -17,4 +17,5 @@ class Degree extends Model
     public function modules() {
         return $this->belongsToMany(Module::class, 'degree_module', 'degree_id', 'module_id');
     }
+    protected $visible = ['id', 'name', 'modules'];
 }

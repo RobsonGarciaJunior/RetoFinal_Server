@@ -20,7 +20,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/home') }}">
                     <img id="logo" src="{{ asset('img/EEM-logo-color.svg') }}" class="img-fluid" alt="Logo">
                 </a>
 
@@ -30,10 +30,19 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
-
+                    @if( !Auth::user()==null && !auth()->user()->roles->contains(3))
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('degrees.index') }}">Ciclos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('departments.index') }}">Departamentos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('users.index') }}">Usuarios</a>
+                            </li>
+                        </ul>
+                    @endif
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
