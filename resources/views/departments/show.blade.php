@@ -36,9 +36,11 @@
                         <td colspan="4">No hay usuarios en este departamento.</td>
                     </tr>
                 @endforelse
-                {{ $users->links() }}
             </tbody>
         </table>
+    </div>
+    <div id='pagination' class="text-right">
+     {{ $users->links('pagination::bootstrap-4') }}
     </div>
 </div>
 @endsection

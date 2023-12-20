@@ -28,7 +28,8 @@ class User extends Authenticatable
         'phoneNumber2',
         'address',
         'photo',
-        'departmentId'
+        'FCTDUAL',
+        'department_id'
     ];
 
     /**

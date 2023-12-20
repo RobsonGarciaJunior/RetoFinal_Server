@@ -14,4 +14,9 @@ class Department extends Model
     {
         return $this->hasMany(User::class, 'department_id');
     }
+
+    public function degrees(): HasMany
+    {
+        return $this->hasMany(Degree::class, 'department_id');
+    }
 }

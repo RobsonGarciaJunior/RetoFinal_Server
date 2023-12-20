@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 
 return [
-
+    'pagination' => [
+        'default' => env('PAGINATION_COUNT', 50),
+    ],
     /*
     |--------------------------------------------------------------------------
     | Application Name

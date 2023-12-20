@@ -26,3 +26,10 @@
 #link:hover {
     color: #211261;
 }
+#link_admin{
+    color: black;
+}
+.dropdown-menu a {
+    text-decoration: none;
+    color: inherit;
+}

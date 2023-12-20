@@ -18,25 +18,23 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse($users->sortBy([
-                    ['surname', 'asc'],
-                    ['name', 'asc'],
-                    ['email', 'asc'],
-                    ['phoneNumber1', 'asc']
-                ]) as $user)
+                @forelse($usersPaginated as $user)
                     <tr>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->surname }}</td>
                         <td>{{ $user->email }}</td>
-                        <td>{{ $user->phoneNumber1}}</td>
+                        <td>{{ $user->phoneNumber1 }}</td>
                     </tr>
-                    @empty
+                @empty
                     <tr>
                         <td colspan="4">No hay usuarios.</td>
                     </tr>
                 @endforelse
             </tbody>
         </table>
+    </div>
+    <div id='pagination' class="text-right">
+        {{ $usersPaginated->links('pagination::bootstrap-4') }}
     </div>
 </div>
 @endsection

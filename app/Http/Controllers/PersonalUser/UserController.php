@@ -12,8 +12,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        return view('users.index',['users' => $users]);
+         $usersPaginated = User::orderBy('surname')
+        ->orderBy('name')
+        ->orderBy('email')
+        ->orderBy('phoneNumber1')
+        ->paginate(config('app.pagination.default'));
+
+    return view('users.index', compact('usersPaginated'));
     }
 
     /**
@@ -65,5 +70,4 @@ class UserController extends Controller
     {
         //
     }
-
 }

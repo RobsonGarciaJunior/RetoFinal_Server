@@ -32,10 +32,10 @@ class LoginController extends Controller
     public function redirectPath()
     {
         if (Auth::user()->roles->contains(Role::IS_ADMIN)) {
-            return "/admin/home";
+            return 'admin/home';
         }
         else{
-            return '/home';
+            return 'home';
 
         }
     }

@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-
+ /*
         DB::table('users')->insert([
             'DNI' => '12345678A',
             'name' => 'Joana',
@@ -91,8 +91,7 @@ class UserSeeder extends Seeder
         $user->degrees()->attach($degree2);
         $user->roles()->attach($rol);
         $user->modules()->attach($module);
-
-        /*
+*/
 #FACTORY
         #Creamos 1 admin
         User::factory()->count(1)->create();
@@ -131,6 +130,6 @@ class UserSeeder extends Seeder
         foreach ($users as $user) {
             $user->roles()->attach($rol);
         }
-*/
+
     }
 }

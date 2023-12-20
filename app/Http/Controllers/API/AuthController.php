@@ -21,28 +21,34 @@ class AuthController extends Controller
             'DNI' => 'required|string|max:9',
             'name' => 'required|string|max:255',
             'surname' => 'required|string|max:255',
-            'phoneNumber1' => 'required|integer|max:9',
-            'phoneNumber2' => 'integer|max:9',
+            'phoneNumber1' => 'required|integer',
+            'phoneNumber2' => 'integer',
             'address' => 'required|string|max:255',
             'photo' => 'required|string',
         ]);
 
         #Obtenemos el usuario que deseamos confirmar
-        $user = User::find($request->email);
-        $user->DNI = $validatedData['DNI'];
-        $user->name = $validatedData['name'];
-        $user->surname = $validatedData['surname'];
-        $user->phoneNumber1 = $validatedData['phoneNumber1'];
-        $user->phoneNumber2 = $validatedData['phoneNumber2'];
-        $user->address = $validatedData['address'];
-        $user->photo = $validatedData['photo'];
-        $result = $user->save();
+        $user = User::where('email', $validatedData['email'])->first();
         if ($user) {
-            return response()->json(['user' => $result])
-                ->setStatusCode(Response::HTTP_OK);
+            $user->DNI = $validatedData['DNI'];
+            $user->name = $validatedData['name'];
+            $user->surname = $validatedData['surname'];
+            $user->phoneNumber1 = $validatedData['phoneNumber1'];
+            $user->phoneNumber2 = $validatedData['phoneNumber2'];
+            $user->address = $validatedData['address'];
+            $user->photo = $validatedData['photo'];
+            $result = $user->save();
+            if ($user) {
+                return response()->json(['user' => $result])
+                    ->setStatusCode(Response::HTTP_OK);
+            } else {
+                return response()->json([
+                    'message' => ['User has not been updated'],
+                ])->setStatusCode(Response::HTTP_NOT_FOUND);
+            }
         } else {
             return response()->json([
-                'message' => ['Password not changed'],
+                'message' => ['User that not exist'],
             ])->setStatusCode(Response::HTTP_NOT_FOUND);
         }
     }
@@ -50,35 +56,38 @@ class AuthController extends Controller
     public function changePassword(Request $request)
     {
         $validatedData = $request->validate([
-            'token' => 'required',
             'email' => 'required|email',
-            'password' => 'required|min:8|confirmed',
-            'password_confirmation' => 'required|min:8|confirmed',
+            'oldPassword' => 'required|min:8',
+            'newPassword' => 'required|min:8',
 
         ]);
 
-        $status = Password::reset(
-            $request->only('email', 'password', 'password_confirmation', 'token'),
-            function (User $user, string $password) {
-                $user->forceFill([
-                    'password' => Hash::make($password)
-                ])->setRememberToken(Str::random(60));
-
-                $user->save();
-
-                event(new PasswordReset($user));
+        $user = User::where('email', $validatedData['email'])->first();
+        if ($user) {
+            if (Hash::check($request->oldPassword, $user->password)) {
+                $user->password = Hash::make($validatedData['newPassword']);
+                $response = $user->save();
+                if ($response) {
+                    return response()->json([
+                        'message' => ['Password changed succesfully'],
+                    ])->setStatusCode(Response::HTTP_OK);
+                } else {
+                    return response()->json([
+                        'message' => ['Password not changed'],
+                    ])->setStatusCode(Response::HTTP_OK);
+                }
+            } else {
+                return response()->json([
+                    'message' => ['Wrong Password'],
+                ])->setStatusCode(Response::HTTP_NOT_FOUND);
             }
-        );
-        if ($status === Password::PASSWORD_RESET) {
-            return response()->json([
-                'message' => ['Password changed succesfully'],
-            ])->setStatusCode(Response::HTTP_OK);
         } else {
             return response()->json([
-                'message' => ['Password not changed'],
+                'message' => ['User does not exist'],
             ])->setStatusCode(Response::HTTP_NOT_MODIFIED);
         }
     }
+
     public function login(Request $request)
     {
         $request->validate([
@@ -97,7 +106,6 @@ class AuthController extends Controller
         // $user->tokens()->delete();
 
         $degrees = $user->degrees()->with("modules")->get();
-        $degrees->makeHidden(['pivot']);
 
         return response()->json([
             'id' => $user->id,
@@ -110,7 +118,7 @@ class AuthController extends Controller
             'photo' => null,
             'FCTDUAL' => $user->FCTDUAL,
             'email' => $user->email,
-            'degrees'=>$degrees,
+            'degrees' => $degrees,
             // 'modules'=>$user->modules()->get(),
             'department_id' => $user->department_id,
             'token' => $user->createToken($request->device_name)
