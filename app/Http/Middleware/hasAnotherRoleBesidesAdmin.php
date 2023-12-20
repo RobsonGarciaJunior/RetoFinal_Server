@@ -4,11 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\Role;
 
-class isAdminMiddleware
+class hasAnotherRoleBesidesAdmin
 {
     /**
      * Handle an incoming request.
@@ -17,15 +16,9 @@ class isAdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-
-         if (!auth()->check() || !auth()->user()->roles->contains(Role::IS_ADMIN)){
-             abort(code:403);
-         }
-            return $next($request);
-
-        #if (auth()->check() && auth()->user()->roles->contains(1)){
-        #    return $next($request);
-        #}
-        #return redirect()->route('login');
+        if (!auth()->check() || auth()->user()->roles->contains(Role::IS_ADMIN) && auth()->user()->roles->count() === 1) {
+            abort(code: 403);
+        }
+        return $next($request);
     }
 }

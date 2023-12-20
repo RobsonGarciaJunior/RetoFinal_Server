@@ -58,7 +58,8 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     //ROUTES FOR THE USER
-    Route::group([], function () {
+    Route::group([
+        'middleware' => 'has_not_only_admin'], function () {
         Route::get('/home', [App\Http\Controllers\PersonalUser\HomeController::class, 'index'])->name('home');
         Route::get('/users', [App\Http\Controllers\PersonalUser\UserController::class, 'index'])->name('users.index');
         Route::get('/degrees', [App\Http\Controllers\PersonalUser\DegreeController::class, 'index'])->name('degrees.index');
