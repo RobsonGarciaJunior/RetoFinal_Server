@@ -58,9 +58,6 @@ class User extends Authenticatable
         return $this->belongsTo(Department::class, 'department_id');
     }
 
-    //TENGO QUE CREAR EL MODELO DE ROLE_USER? para refenciar aqui esas dos claves primarias
-    //O puedo coger directamente de aqui la ID de este misma clase y la id de la clase con la que se relaciona en la nueva tabla?
-
     public function roles() {
         return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id');
     }

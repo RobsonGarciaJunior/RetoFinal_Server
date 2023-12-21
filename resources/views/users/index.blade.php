@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="mb-4">
-        <h3 class="text-center mb-4">Usuarios de Elorrieta-Errekamari</h3>
+        <h3 class="text-center mb-4">{{trans('app.elorrieta_users') }}</h3>
         <br>
     </div>
 
@@ -11,10 +11,10 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Correo Electrónico</th>
-                    <th>Teléfono</th>
+                    <th>{{trans('app.name') }}</th>
+                    <th>{{trans('app.surname') }}</th>
+                    <th>{{trans('app.email') }}</th>
+                    <th>{{trans('app.phone') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,7 +27,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4">No hay usuarios.</td>
+                        <td colspan="4">{{trans('app.no_user') }}</td>
                     </tr>
                 @endforelse
             </tbody>

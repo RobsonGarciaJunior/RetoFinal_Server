@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="mb-4">
-        <h3 class="text-center mb-4">Ciclos de Elorrieta-Errekamari</h3>
+        <h3 class="text-center mb-4">{{trans('app.elorrieta_degrees') }}</h3>
         <br>
     </div>
     <div class="accordion" id="accordionCiclos">

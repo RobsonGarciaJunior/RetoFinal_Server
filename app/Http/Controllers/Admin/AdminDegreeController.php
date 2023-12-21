@@ -16,7 +16,6 @@ class AdminDegreeController extends Controller
     public function index()
     {
         $degrees = Degree::all();
-
         return view('admin.degrees.index', ['degrees' => $degrees]);
     }
 
@@ -25,7 +24,8 @@ class AdminDegreeController extends Controller
      */
     public function create()
     {
-        return view('admin.degrees.create_edit');
+        $departments = Department::all();
+        return view('admin.degrees.create_edit', ['departments' => $departments]);
     }
 
     /**
@@ -33,12 +33,12 @@ class AdminDegreeController extends Controller
      */
     public function store(Request $request)
     {
-        $degrees = Degree::all();
-
         $degree = new Degree();
         $degree->name = $request->name;
         $degree->department_id = $request->department_id;
         $degree->save();
+
+        $degrees = Degree::all();
         return redirect()->route('admin.degrees.index', ['degrees' => $degrees]);
     }
 
@@ -64,12 +64,11 @@ class AdminDegreeController extends Controller
      */
     public function update(Request $request, Degree $degree)
     {
-        $degrees = Degree::all();
-
-
         $degree->name = $request->name;
         $degree->department_id = $request->department_id;
         $degree->save();
+
+        $degrees = Degree::all();
         return redirect()->route('admin.degrees.index', ['degrees' => $degrees]);
     }
 
@@ -78,9 +77,9 @@ class AdminDegreeController extends Controller
      */
     public function destroy(Degree $degree)
     {
-        $degrees = Degree::all();
-
         $degree->delete();
+
+        $degrees = Degree::all();
         return view('admin.degrees.index', ['degrees' => $degrees]);
     }
 }

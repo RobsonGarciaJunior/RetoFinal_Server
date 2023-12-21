@@ -40,7 +40,7 @@ class UserFactory extends Factory
             'address' => $this->faker->address(),
             'photo' => null,
             'FCTDUAL' => $this->faker->boolean(),
-            'email' => $firstName . $lastName . '@elorrieta-errekamari.com',
+            'email' => $firstName . $lastName . '@elorrieta.com',
             'email_verified_at' => now(),
             'password' => $pass,
             'remember_token' => Str::random(10),

@@ -24,7 +24,7 @@ class AdminDepartmentController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.departments.create_edit');
     }
 
     /**
@@ -32,7 +32,10 @@ class AdminDepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $department = new Department();
+        $department->name = $request->name;
+        $department->save();
+        return redirect()->route('admin.departments.create_edit');
     }
 
     /**
@@ -40,7 +43,7 @@ class AdminDepartmentController extends Controller
      */
     public function show(Department $department)
     {
-        return view('departments.show',['department'=>$department]);
+       //
     }
 
     /**
@@ -48,7 +51,7 @@ class AdminDepartmentController extends Controller
      */
     public function edit(Department $department)
     {
-        //
+        return view('admin.departments.create_edit', ['department' => $department]);
     }
 
     /**
@@ -56,7 +59,11 @@ class AdminDepartmentController extends Controller
      */
     public function update(Request $request, Department $department)
     {
-        //
+        $department->name = $request->name;
+        $department->save();
+
+        $departments = Department::all();
+        return view('admin.departments.index',['departments' => $departments]);
     }
 
     /**
@@ -64,6 +71,9 @@ class AdminDepartmentController extends Controller
      */
     public function destroy(Department $department)
     {
-        //
+        $department->delete();
+
+        $departments = Department::all();
+        return view('admin.departments.index', ['departments' => $departments]);
     }
 }

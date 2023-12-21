@@ -36,6 +36,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+             \App\Http\Middleware\LocaleMiddleware::class,
         ],
 
         'api' => [
@@ -71,5 +72,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'is_admin'=>\App\Http\Middleware\isAdminMiddleware::class,
         'has_not_only_admin'=>\App\Http\Middleware\hasAnotherRoleBesidesAdmin::class,
+        'translate' => \App\Http\Middleware\LocaleMiddleware::class,
     ];
 }

@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="mb-3">
-        <h3>Espacio personal de {{ Auth::user()->name }}</h3>
+        <h3>{{ Auth::user()->name }} {{ Auth::user()->surname }}</h3>
     </div>
     <div class="accordion" id="accordionGenerico">
         @if(auth()->user()->roles->contains(3))
@@ -24,8 +24,8 @@
                             }) as $user)
                                 @if($user->roles->contains(3) && $user->degrees->contains($degree))
                                     <div class="user-info">
-                                        <p><strong>Fecha de matriculación:</strong> {{ $user->degrees->find($degree->id)->pivot->registration_date }}</p>
-                                        <p><strong>Curso:</strong> {{ $user->degrees->find($degree->id)->pivot->year_of_degree }}</p>
+                                        <p><strong>{{trans('app.registration_date') }}</strong> {{ $user->degrees->find($degree->id)->pivot->registration_date }}</p>
+                                        <p><strong>{{trans('app.course_of') }}</strong> {{ $user->degrees->find($degree->id)->pivot->year_of_degree }}</p>
                                     </div>
                                 @endif
                             @endforeach
@@ -41,9 +41,8 @@
                             aria-controls="collapse_department">
                         <!-- Condicion provisional que se puede eliminar cuando redirija a admin -->
                         @if(auth()->user()->department == null)
-                            Administradores
                         @else
-                            Departamento de {{ auth()->user()->department->name }}
+                        {{trans('app.department_of') }} {{ auth()->user()->department->name }}
                         @endif
                     </button>
                 </h2>
@@ -53,8 +52,8 @@
                         @foreach ($users as $user)
                             @if(!$user->roles->contains(3) && $user->department == auth()->user()->department)
                                 <div class="user-info">
-                                    <p><strong>Nombre: </strong>{{ $user->name }} {{ $user->surname }} </p>
-                                    <p><strong>Correo: </strong> {{ $user->email }} </p>
+                                    <p><strong>{{trans('app.name_of') }} </strong>{{ $user->name }} {{ $user->surname }} </p>
+                                    <p><strong>{{trans('app.email_of') }} </strong> {{ $user->email }} </p>
                                 </div>
                                 <hr class="user-separator">
                             @endif
@@ -66,7 +65,7 @@
 
         @if(auth()->user()->roles->contains(2))
             <br>
-            <h4>Modulos impartidos</h4>
+            <h4>{{trans('app.modules_teacher') }}</h4>
 
             @foreach (auth()->user()->modules as $module)
                 <div class="accordion-item">
@@ -86,8 +85,8 @@
                                         @foreach ($user->modules as $userModule)
                                             @if ($userModule->id === $module->id && $userModule->pivot->year_of_impartion === $module->year_of_impartion)
                                                 <div class="user-info">
-                                                    <p><strong>Nombre:</strong> {{ $user->name }} {{ $user->surname }}</p>
-                                                    <p><strong>Correo:</strong> {{ $user->email }}</p>
+                                                    <p><strong>{{trans('app.name_of') }}</strong> {{ $user->name }} {{ $user->surname }}</p>
+                                                    <p><strong>{{trans('app.email_of') }}</strong> {{ $user->email }}</p>
                                                 </div>
                                                 <hr class="user-separator">
                                             @endif

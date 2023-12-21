@@ -2,17 +2,17 @@
 @section('content')
 <div class="container">
     <div class="mb-4">
-        <h3 class="text-center mb-4">Departamento de {{ $department->name }}</h3>
+        <h3 class="text-center mb-4">{{trans('app.department_of') }} {{ $department->name }}</h3>
         <br>
     </div>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Correo Electrónico</th>
-                    <th>Teléfono</th>
+                    <th>{{trans('app.name') }}</th>
+                    <th>{{trans('app.surname') }}</th>
+                    <th>{{trans('app.email') }}</th>
+                    <th>{{trans('app.phone') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,7 +33,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="4">No hay usuarios en este departamento.</td>
+                        <td colspan="4">{{trans('app.no_user_department') }}</td>
                     </tr>
                 @endforelse
             </tbody>

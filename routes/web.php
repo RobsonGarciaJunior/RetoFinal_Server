@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminRoleController;
 use App\Http\Controllers\Admin\AdminModuleController;
 use App\Http\Controllers\Admin\AdminHomeController;
+use Illuminate\Support\Facades\Session;
 
 
 
@@ -28,7 +29,13 @@ Auth::routes();
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware('translate');
+
+//Ruta para cambiar idioma
+Route::get('/lang/{language}', function ($language) {
+    Session::put('language',$language);
+    return redirect()->back();
+})->name('language');
 
 Route::group(['middleware' => 'auth'], function () {
     //ROUTES FOR THE ADMIN
@@ -55,7 +62,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resources([
             'modules' => AdminModuleController::class,
         ]);
-    });
+    })->middleware('translate');
 
     //ROUTES FOR THE USER
     Route::group([
@@ -65,5 +72,5 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/degrees', [App\Http\Controllers\PersonalUser\DegreeController::class, 'index'])->name('degrees.index');
         Route::get('/departments', [App\Http\Controllers\PersonalUser\DepartmentController::class, 'index'])->name('departments.index');
         Route::get('/departments/{department}', [App\Http\Controllers\PersonalUser\DepartmentController::class, 'show'])->name('departments.show');
-    });
+    })->middleware('translate');
 });
