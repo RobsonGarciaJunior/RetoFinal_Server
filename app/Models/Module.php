@@ -13,6 +13,6 @@ class Module extends Model
         return $this->belongsToMany(User::class, 'user_module', 'user_id', 'module_id');
     }
     public function degrees() {
-        return $this->belongsToMany(Degree::class, 'degree_module', 'degree_id', 'module_id');
+        return $this->belongsToMany(Degree::class, 'degree_module', 'degree_id', 'module_id')->withPivot('degree_id');;
     }
 }
