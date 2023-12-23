@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Degree;
 use App\Models\Department;
+use App\Models\Module;
 use Illuminate\Http\Request;
 
 class AdminDegreeController extends Controller
@@ -25,7 +26,8 @@ class AdminDegreeController extends Controller
     public function create()
     {
         $departments = Department::all();
-        return view('admin.degrees.create_edit', ['departments' => $departments]);
+        $modules = Module::all();
+        return view('admin.degrees.create_edit', ['departments' => $departments, 'modules' => $modules]);
     }
 
     /**
@@ -37,6 +39,7 @@ class AdminDegreeController extends Controller
         $degree->name = $request->name;
         $degree->department_id = $request->department_id;
         $degree->save();
+        $degree->modules()->attach($request->input('modules', []));
 
         $degrees = Degree::all();
         return redirect()->route('admin.degrees.index', ['degrees' => $degrees]);
@@ -56,7 +59,8 @@ class AdminDegreeController extends Controller
     public function edit(Degree $degree)
     {
         $departments = Department::all();
-        return view('admin.degrees.create_edit', ['degree' => $degree, 'departments' => $departments]);
+        $modules = Module::all();
+        return view('admin.degrees.create_edit', ['degree' => $degree, 'departments' => $departments, 'modules' => $modules]);
     }
 
     /**
@@ -66,6 +70,7 @@ class AdminDegreeController extends Controller
     {
         $degree->name = $request->name;
         $degree->department_id = $request->department_id;
+        $degree->modules()->sync($request->input('modules', []));
         $degree->save();
 
         $degrees = Degree::all();

@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Department;
 use App\Models\Module;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -30,6 +31,13 @@ class UserFactory extends Factory
         $dni = mt_rand(1000000, 99999999) . $characters[rand(0, strlen($characters) - 1)];
         $firstName = $this->faker->firstName;
         $lastName = $this->faker->lastName;
+        // Eliminar tildes
+        $firstName = str_replace(['á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú'], ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'], $firstName);
+        $lastName = str_replace(['á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú'], ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'], $lastName);
+
+        // Obtener solo la primera palabra para que no existan nombres compuestos
+        $firstNameParts = explode(' ', $firstName);
+        $firstName = $firstNameParts[0];
         $pass = Hash::make('elorrieta00');
         return [
             'DNI' => $dni,
@@ -67,7 +75,7 @@ class UserFactory extends Factory
         });
     }
 
-    public function professor(array $modules)
+    public function professor(Collection $modules)
     {
         #$degree = $modules->degrees->id->first();
         return $this->state(function (array $attributes) {

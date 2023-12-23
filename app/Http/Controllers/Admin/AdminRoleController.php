@@ -24,7 +24,7 @@ class AdminRoleController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.roles.create_edit');
     }
 
     /**
@@ -32,7 +32,12 @@ class AdminRoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $role = new Role();
+        $role->name = $request->name;
+        $role->save();
+
+        $roles = Role::all();
+        return view('admin.roles.index',['roles' => $roles]);
     }
 
     /**
@@ -48,7 +53,7 @@ class AdminRoleController extends Controller
      */
     public function edit(Role $role)
     {
-        //
+        return view('admin.roles.create_edit', ['role' => $role]);
     }
 
     /**
@@ -56,7 +61,11 @@ class AdminRoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
-        //
+        $role->name = $request->name;
+        $role->save();
+
+        $roles = Role::all();
+        return view('admin.roles.index',['roles' => $roles]);
     }
 
     /**
@@ -64,6 +73,11 @@ class AdminRoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        //
+        $this->authorize('role_deletable');
+
+        $role->delete();
+
+        $roles = Role::all();
+        return view('admin.roles.index',['roles' => $roles]);
     }
 }

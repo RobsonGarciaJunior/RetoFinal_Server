@@ -36,28 +36,28 @@
                 value="{{ isset($module) ? $module->code : '' }}" />
         </div>
         <div class="form-group mb-3">
-            <label for="name" class="form-label">{{ trans('app.degree') }}</label>
-            <select class="form-select" name="degree_id" id="degree_id" required>
-                @foreach ($degrees as $degree)
-                    <!-- Comprobamos que el ciclo no sea nulo para saber si estamos en editar o crear -->
-                    <!-- Luego si no es nulo, significa que estamos en editar y hay que hacer otra comprobacion para saber que departamento hemos pasado a la vista -->
-                    <option value="{{ $degree->id }}"
-                        @if (isset($module)) @if ($module->degrees->first()->name == $degree->name)
-                            selected @endif
-                        @endif>
+            <label for="name" class="form-label">{{ trans('app.modules') }}</label>
+            @foreach ($degrees as $degree)
+                <div>
+                    <label>
+                        <input type="checkbox" name="degree[]" id="degree[]" value="{{ $degree->id }}"
+                            @if (isset($module)) @if ($module->degrees->contains('name', $degree->name))
+                                checked @endif
+                            @endif>
                         {{ $degree->name }}
-                    </option>
-                @endforeach
-            </select>
+                    </label>
+                </div>
+            @endforeach
         </div>
-        @if (isset($module))
-            <button type="submit" class="btn btn-primary">
-                {{ trans('app.update') }}
-            </button>
-        @else
-            <button type="submit" class="btn btn-success">
-                {{ trans('app.create') }}
-            </button>
-        @endif
+    </div>
+    @if (isset($module))
+        <button type="submit" class="btn btn-primary">
+            {{ trans('app.update') }}
+        </button>
+    @else
+        <button type="submit" class="btn btn-success">
+            {{ trans('app.create') }}
+        </button>
+    @endif
     </div>
 @endsection

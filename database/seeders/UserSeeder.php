@@ -113,14 +113,15 @@ class UserSeeder extends Seeder
         #Obtenemos el rol de profesor
         $rol = Role::find(Role::IS_PROFESSOR);
         #Obtenemos todos los modulos
-        $degreeId = rand(1, 4);
         #FIXME
-        $modules = Degree::find(1)->modules()->get()->toArray();
+        $degree = Degree::inRandomOrder()->first();
+        $modules = $degree->modules()->get();
         #Creamos 10 profesores
         User::factory(10)->professor($modules)->create()->each (function ($user) use ($modules, $rol) {
             $user->roles()->attach($rol);
             #Le agregamos 5 modulos aleatorios
-            $user->modules()->attach($modules->random(5));
+            $randomModules = $modules->shuffle()->take(2);
+            $user->modules()->attach($randomModules);
         });
     }
 }

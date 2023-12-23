@@ -57,6 +57,7 @@
                                     <p><strong>{{trans('app.email_of') }} </strong> {{ $user->email }} </p>
                                 </div>
                                 <hr class="user-separator">
+
                             @endif
                         @endforeach
                     </div>
