@@ -73,7 +73,7 @@ class AdminRoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        $this->authorize('role_deletable');
+        $this->authorize('role_deletable', [$role->id]);
 
         $role->delete();
 

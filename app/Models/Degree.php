@@ -16,7 +16,7 @@ class Degree extends Model
     }
     public function modules()
     {
-        return $this->belongsToMany(Module::class, 'degree_module', 'degree_id', 'module_id')->withPivot('degree_id');
+        return $this->belongsToMany(Module::class, 'degree_module', 'degree_id', 'module_id');
     }
     //BELONG
     public function department(): BelongsTo
