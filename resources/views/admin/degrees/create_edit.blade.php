@@ -4,9 +4,9 @@
         <div class="card">
             <div class="card-header">
                 @if (isset($degree))
-                {{ trans('app.edit_degree') }}
+                    {{ trans('app.edit_degree') }}
                 @else
-                {{ trans('app.create_degree') }}
+                    {{ trans('app.create_degree') }}
                 @endif
                 <form class="mt-2" name="create_platform"
                     @if (isset($degree)) action="{{ route('admin.degrees.update', $degree) }}"
@@ -39,6 +39,20 @@
                     </option>
                 @endforeach
             </select>
+            <div class="form-group mb-3">
+                <label for="name" class="form-label">{{ trans('app.modules') }}</label>
+                @foreach ($modules as $module)
+                    <div>
+                        <label>
+                            <input type="checkbox" name="modules[]" id="modules[]" value="{{ $module->id }}"
+                                @if (isset($degree)) @if ($degree->modules->contains('name', $module->name))
+                                    checked @endif
+                                @endif>
+                            {{ $module->name }}
+                        </label>
+                    </div>
+                @endforeach
+            </div>
         </div>
         @if (isset($degree))
             <button type="submit" class="btn btn-primary">

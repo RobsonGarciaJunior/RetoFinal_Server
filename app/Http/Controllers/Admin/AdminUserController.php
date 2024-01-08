@@ -9,18 +9,21 @@ use Illuminate\Http\Request;
 
 class AdminUserController extends Controller
 {
-  /**
+    /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-         $usersPaginated = User::orderBy('surname')
-        ->orderBy('name')
-        ->orderBy('email')
-        ->orderBy('phoneNumber1')
-        ->paginate(config('app.pagination.default'));
+        $usersPaginated = User::with('department')->when($request->has('archive'), function ($query) {
+            return $query->onlyTrashed();
+        })->orderBy('surname')
+            ->orderBy('name')
+            ->orderBy('email')
+            ->orderBy('phoneNumber1')
+            ->paginate(config('app.pagination.default'));
 
-    return view('admin.users.index', compact('usersPaginated'));
+        $trashedCount = User::onlyTrashed()->count();
+        return view('admin.users.index', compact('usersPaginated', 'trashedCount'));
     }
 
     /**
@@ -65,11 +68,29 @@ class AdminUserController extends Controller
 
     }
 
+    public function restore($id)
+    {
+        $user = User::onlyTrashed()->findOrFail($id);
+        $user->restore();
+
+        return redirect()->route('admin.users.index');
+    }
+
+    public function forceDelete($id)
+    {
+        $user = User::onlyTrashed()->findOrFail($id);
+        $user->forceDelete();
+        return redirect()->route('admin.users.index');
+    }
+
+
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return redirect()->route('admin.users.index');
     }
 }

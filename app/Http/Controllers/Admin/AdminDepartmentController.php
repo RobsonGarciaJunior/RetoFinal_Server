@@ -35,7 +35,9 @@ class AdminDepartmentController extends Controller
         $department = new Department();
         $department->name = $request->name;
         $department->save();
-        return redirect()->route('admin.departments.create_edit');
+
+        $departments = Department::all();
+        return view('admin.departments.index',['departments' => $departments]);
     }
 
     /**

@@ -38,7 +38,9 @@ class AdminModuleController extends Controller
         $module->hours = $request->hours;
         $module->code = $request->code;
         $module->save();
-        return redirect()->route('admin.modules.create_edit');
+        $module->degrees()->attach($request->input('degrees', []));
+        $modules = Module::all();
+        return view('admin.modules.index', ['modules' => $modules]);
     }
 
     /**
@@ -54,8 +56,8 @@ class AdminModuleController extends Controller
      */
     public function edit(Module $module)
     {
+        #dd($module->degrees);
         $degrees = Degree::all();
-        dd($module->degrees->first());
         return view('admin.modules.create_edit', ['module' => $module, 'degrees' => $degrees]);
     }
 
@@ -67,10 +69,8 @@ class AdminModuleController extends Controller
         $module->name = $request->name;
         $module->hours = $request->hours;
         $module->code = $request->code;
-        $degree = Degree::find($request->degree_id);
-
-        //Le asignamos el ciclo con al que pertenece
-        $module->degrees()->sync($degree);
+        //Le actualizamos los ciclos donde se da
+        $module->degrees()->sync($request->input('degrees', []));
         $module->save();
         $modules = Module::all();
         return view('admin.modules.index', ['modules' => $modules]);
