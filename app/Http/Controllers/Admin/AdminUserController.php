@@ -26,6 +26,18 @@ class AdminUserController extends Controller
         return view('admin.users.index', compact('usersPaginated', 'trashedCount'));
     }
 
+    public function indexFiltered(Request $request, $users)
+    {
+        $users->orderBy('surname')
+            ->orderBy('name')
+            ->orderBy('email')
+            ->orderBy('phoneNumber1')
+            ->paginate(config('app.pagination.default'));
+
+        $trashedCount = User::onlyTrashed()->count();
+        return view('admin.users.index', compact('users', 'trashedCount'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */

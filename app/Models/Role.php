@@ -17,4 +17,6 @@ class Role extends Model
     public const IS_ADMIN = 1;
     public const IS_PROFESSOR = 2;
     public const IS_STUDENT = 3;
+
+    public const NO_ROLE = null;
 }

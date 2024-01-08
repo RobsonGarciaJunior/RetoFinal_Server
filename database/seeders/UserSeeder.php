@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Role;
 use App\Models\Module;
 use App\Models\Degree;
+use App\Models\Department;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
@@ -95,7 +96,7 @@ class UserSeeder extends Seeder
         #Obtenemos el rol de admin
         $rol = Role::find(Role::IS_ADMIN);
         #Creamos 1 admin
-        User::factory(1)->create()->each(function ($user) use ($rol) {
+        User::factory(1)->admin()->create()->each(function ($user) use ($rol) {
             $user->roles()->attach($rol);
         });
 
@@ -117,7 +118,7 @@ class UserSeeder extends Seeder
         $degree = Degree::inRandomOrder()->first();
         $modules = $degree->modules()->get();
         #Creamos 10 profesores
-        User::factory(10)->professor($modules)->create()->each (function ($user) use ($modules, $rol) {
+        User::factory(10)->professor($modules)->create()->each(function ($user) use ($modules, $rol) {
             $user->roles()->attach($rol);
             #Le agregamos 5 modulos aleatorios
             $randomModules = $modules->shuffle()->take(2);

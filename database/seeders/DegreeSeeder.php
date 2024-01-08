@@ -26,7 +26,7 @@ class DegreeSeeder extends Seeder
         #Creamos SMR
         DB::table('degrees')->insert([
             'name' => 'SMR',
-            'department_id' => 1,
+            'department_id' => 2,
             'created_at' => now(),
         ]);
         #Obtenemos el ciclo de SMR que acabamos de crear
@@ -44,7 +44,7 @@ class DegreeSeeder extends Seeder
         #Creamos DAM
         DB::table('degrees')->insert([
             'name' => 'DAM',
-            'department_id' => 1,
+            'department_id' => 2,
             'created_at' => now(),
         ]);
         #Obtenemos el ciclo de DAM que acabamos de crear
@@ -55,7 +55,7 @@ class DegreeSeeder extends Seeder
         #Creamos DAW
         DB::table('degrees')->insert([
             'name' => 'DAW',
-            'department_id' => 1,
+            'department_id' => 2,
             'created_at' => now(),
         ]);
         #Obtenemos el ciclo de DAW que acabamos de crear
@@ -78,7 +78,7 @@ class DegreeSeeder extends Seeder
         #Creamos Soldadura y Calderería
         DB::table('degrees')->insert([
             'name' => 'Soldadura y Calderería',
-            'department_id' => 3,
+            'department_id' => 4,
             'created_at' => now(),
         ]);
         #Obtenemos el ciclo de Soldadura que acabamos de crear

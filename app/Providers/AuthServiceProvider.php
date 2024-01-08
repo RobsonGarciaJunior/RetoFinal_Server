@@ -25,6 +25,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerPolicies();
+
         // Creamos una permision que no deje borrar los roles importantes
         Gate::define('role_deletable', function (User $user, $targetRoleId) {
             $forbiddenRoles = [Role::IS_ADMIN, Role::IS_PROFESSOR, Role::IS_STUDENT];
@@ -33,5 +34,10 @@ class AuthServiceProvider extends ServiceProvider
             return !in_array($targetRoleId, $forbiddenRoles);
         });
 
+        // Creamos una permision que no deje al usuario 1
+        Gate::define('user_deletable', function (User $user) {
+            // Verificar si el rol objetivo es uno de los roles prohibidos
+            return $user->roles->contains(Role::IS_ADMIN);
+        });
     }
 }

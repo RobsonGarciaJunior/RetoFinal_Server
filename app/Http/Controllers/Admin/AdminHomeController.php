@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Models\User;
+use App\Models\Department;
 use App\Http\Controllers\Controller;
+use App\Models\Degree;
+use App\Models\Module;
 use Illuminate\Http\Request;
 
 class AdminHomeController extends Controller
@@ -24,7 +27,18 @@ class AdminHomeController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        return view('admin/home',['users' => $users]);
+        $students = User::whereHas('roles', function ($query) {
+            $query->where('id', \App\Models\Role::IS_STUDENT);
+        });
+        $personnel = User::whereHas('roles', function ($query) {
+            $query->where('id', \App\Models\Role::IS_PROFESSOR);
+        });
+        $noRole = User::whereHas('roles', function ($query) {
+            $query->where('id', \App\Models\Role::NO_ROLE);
+        });
+        $departments = Department::count();
+        $degrees = Degree::count();
+        $modules = Module::count();
+        return view('admin/home',['students' => $students, 'personnel' => $personnel,'noRole' => $noRole,'departments' => $departments,'degrees' => $degrees, 'modules' => $modules]);
     }
 }

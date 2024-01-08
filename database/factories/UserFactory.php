@@ -60,7 +60,7 @@ class UserFactory extends Factory
      */
     public function unverified(): static
     {
-        return $this->state(fn(array $attributes) => [
+        return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
         ]);
     }
@@ -75,6 +75,17 @@ class UserFactory extends Factory
         });
     }
 
+    public function admin()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'photo' => null,
+                'FCTDUAL' => null,
+                'department_id' => Department::find(1)->id,
+            ];
+        });
+    }
+
     public function professor(Collection $modules)
     {
         #$degree = $modules->degrees->id->first();
@@ -82,7 +93,7 @@ class UserFactory extends Factory
             return [
                 'photo' => null,
                 'FCTDUAL' => null,
-                'department_id' => Department::find(1)->id,
+                'department_id' => Department::find(2)->id,
             ];
         });
     }
