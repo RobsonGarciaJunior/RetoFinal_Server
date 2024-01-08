@@ -18,7 +18,7 @@ class DepartmentSeeder extends Seeder
             'created_at' => now(),
         ]);
         DB::table('departments')->insert([
-            'name' => 'FOL',
+            'name' => 'Limpieza',
             'created_at' => now(),
         ]);
         DB::table('departments')->insert([
@@ -26,7 +26,7 @@ class DepartmentSeeder extends Seeder
             'created_at' => now(),
         ]);
         DB::table('departments')->insert([
-            'name' => 'Química',
+            'name' => 'Secretaría',
             'created_at' => now(),
         ]);
     }

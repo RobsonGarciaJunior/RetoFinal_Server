@@ -27,7 +27,6 @@
                                         <p><strong>{{trans('app.registration_date') }}</strong> {{ $user->degrees->find($degree->id)->pivot->registration_date }}</p>
                                         <p><strong>{{trans('app.course_of') }}</strong> {{ $user->degrees->find($degree->id)->pivot->year_of_degree }}</p>
                                     </div>
-                                    @break
                                 @endif
                             @endforeach
                         </div>
@@ -57,7 +56,6 @@
                                     <p><strong>{{trans('app.email_of') }} </strong> {{ $user->email }} </p>
                                 </div>
                                 <hr class="user-separator">
-
                             @endif
                         @endforeach
                     </div>

@@ -33,7 +33,7 @@ Route::get('/', function () {
 
 //Ruta para cambiar idioma
 Route::get('/lang/{language}', function ($language) {
-    Session::put('language', $language);
+    Session::put('language',$language);
     return redirect()->back();
 })->name('language');
 
@@ -43,10 +43,7 @@ Route::group(['middleware' => 'auth'], function () {
         'prefix' => 'admin',
         'middleware' => 'is_admin',
         'as' => 'admin.',
-    ], function () {
-        //Rutas para recuperar los usuarios deleteados
-        Route::post('/users/{id}/restore', [App\Http\Controllers\Admin\AdminUserController::class, 'restore'])->name('users.restore');
-        Route::post('/users/{id}/force_delete', [App\Http\Controllers\Admin\AdminUserController::class, 'forceDelete'])->name('users.force_delete');
+    ],    function () {
         Route::resources([
             'home' => AdminHomeController::class,
         ]);
@@ -70,10 +67,10 @@ Route::group(['middleware' => 'auth'], function () {
     //ROUTES FOR THE USER
     Route::group([
         'middleware' => 'has_not_only_admin'], function () {
-            Route::get('/home', [App\Http\Controllers\PersonalUser\HomeController::class, 'index'])->name('home');
-            Route::get('/users', [App\Http\Controllers\PersonalUser\UserController::class, 'index'])->name('users.index');
-            Route::get('/degrees', [App\Http\Controllers\PersonalUser\DegreeController::class, 'index'])->name('degrees.index');
-            Route::get('/departments', [App\Http\Controllers\PersonalUser\DepartmentController::class, 'index'])->name('departments.index');
-            Route::get('/departments/{department}', [App\Http\Controllers\PersonalUser\DepartmentController::class, 'show'])->name('departments.show');
-        })->middleware('translate');
+        Route::get('/home', [App\Http\Controllers\PersonalUser\HomeController::class, 'index'])->name('home');
+        Route::get('/users', [App\Http\Controllers\PersonalUser\UserController::class, 'index'])->name('users.index');
+        Route::get('/degrees', [App\Http\Controllers\PersonalUser\DegreeController::class, 'index'])->name('degrees.index');
+        Route::get('/departments', [App\Http\Controllers\PersonalUser\DepartmentController::class, 'index'])->name('departments.index');
+        Route::get('/departments/{department}', [App\Http\Controllers\PersonalUser\DepartmentController::class, 'show'])->name('departments.show');
+    })->middleware('translate');
 });
