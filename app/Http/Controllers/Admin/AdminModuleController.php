@@ -71,6 +71,7 @@ class AdminModuleController extends Controller
         //Le actualizamos los ciclos donde se da
         $module->degrees()->sync($request->input('degrees', []));
         $module->save();
+
         $modules = Module::all();
         return view('admin.modules.index', ['modules' => $modules]);
     }

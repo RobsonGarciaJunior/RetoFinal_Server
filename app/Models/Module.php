@@ -9,10 +9,12 @@ class Module extends Model
 {
     use HasFactory;
     protected $visible = ['id', 'name', 'code'];
-    public function users() {
+    public function users()
+    {
         return $this->belongsToMany(User::class, 'user_module', 'user_id', 'module_id');
     }
-    public function degrees() {
-        return $this->belongsToMany(Degree::class, 'degree_module', 'degree_id', 'module_id');
+    public function degrees()
+    {
+        return $this->belongsToMany(Degree::class, 'degree_module', 'module_id', 'degree_id');
     }
 }

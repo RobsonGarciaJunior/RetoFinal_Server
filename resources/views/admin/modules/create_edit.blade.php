@@ -36,11 +36,11 @@
                 value="{{ isset($module) ? $module->code : '' }}" />
         </div>
         <div class="form-group mb-3">
-            <label for="name" class="form-label">{{ trans('app.modules') }}</label>
+            <label for="name" class="form-label">{{ trans('app.degrees') }}</label>
             @foreach ($degrees as $degree)
                 <div>
                     <label>
-                        <input type="checkbox" name="degree[]" id="degree[]" value="{{ $degree->id }}"
+                        <input type="checkbox" name="degrees[]" id="degrees[]" value="{{ $degree->id }}"
                             @if (isset($module)) @if ($module->degrees->contains('name', $degree->name))
                                 checked @endif
                             @endif>
