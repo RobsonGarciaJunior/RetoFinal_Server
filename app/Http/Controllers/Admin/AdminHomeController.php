@@ -41,4 +41,5 @@ class AdminHomeController extends Controller
         $modules = Module::count();
         return view('admin/home',['students' => $students, 'personnel' => $personnel,'noRole' => $noRole,'departments' => $departments,'degrees' => $degrees, 'modules' => $modules]);
     }
+    
 }

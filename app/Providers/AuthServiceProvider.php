@@ -35,9 +35,8 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         // Creamos una permision que no deje al usuario 1
-        Gate::define('user_deletable', function (User $user) {
-            // Verificar si el rol objetivo es uno de los roles prohibidos
-            return $user->roles->contains(Role::IS_ADMIN);
+        Gate::define('user_deletable', function (User $user, $targetUser) {
+            return $targetUser->id !== 1;
         });
     }
 }

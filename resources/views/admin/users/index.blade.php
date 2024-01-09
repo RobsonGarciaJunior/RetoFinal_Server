@@ -9,7 +9,16 @@
             <a href="{{ route('admin.users.index', ['archive' => 1]) }}">Archivados</a>
             <a>({{ $trashedCount }})</a>
         </div>
-
+        <div>
+            <a href="{{ route('admin.users.create') }}" class="btn btn-success">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-plus-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                    <path
+                        d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                </svg>
+            </a>
+        </div>
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
@@ -18,7 +27,7 @@
                         <th>{{ trans('app.surname') }}</th>
                         <th>{{ trans('app.email') }}</th>
                         <th>{{ trans('app.phone') }}</th>
-                        <th>{{ trans('app.actions') }}</th>
+                        <th>{{ trans('app.roles') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,6 +35,8 @@
                         <tr>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->surname }}</td>
+                            <td>{{ $user->email }}</td>
+                            <td>{{ $user->phoneNumber1 }}</td>
                             <td>
                                 @foreach ($user->roles as $role)
                                     {{ $role->name }}
@@ -35,23 +46,23 @@
                                     @endif
                                 @endforeach
                             </td>
-                            <td>{{ $user->email }}</td>
-                            <td>{{ $user->phoneNumber1 }}</td>
                             <td>
                                 @if ($user->trashed())
-                                    <form action="{{ route('admin.users.restore', $user->id) }}" method="POST"
+                                    <form id="restoreForm_{{ $user->id }}"
+                                        action="{{ route('admin.users.restore', $user->id) }}" method="POST"
                                         style="display:inline;">
                                         @csrf
-                                        <button class="btn btn-primary" type="submit"
-                                            onclick="return confirm('Are u sure bro?')">
+                                        <button class="btn btn-primary" type="button"
+                                            onclick="confirmRestore('restoreForm_{{ $user->id }}')">
                                             Restaurar
                                         </button>
                                     </form>
-                                    <form action="{{ route('admin.users.force_delete', $user->id) }}" method="POST"
+                                    <form id="deleteForm_{{ $user->id }}"
+                                        action="{{ route('admin.users.force_delete', $user->id) }}" method="POST"
                                         style="display:inline;">
                                         @csrf
-                                        <button class="btn btn-danger" type="submit"
-                                            onclick="return confirm('Are u sure bro?')">
+                                        <button class="btn btn-danger" type="button"
+                                            onclick="confirmDelete('deleteForm_{{ $user->id }}')">
                                             Borrar Definitivamente
                                         </button>
                                     </form>
@@ -66,20 +77,20 @@
                                                 d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
                                         </svg>
                                     </a>
-                                    <form id="deleteForm_{{ $user->id }}"
+                                    <form id="sendToTrashForm_{{ $user->id }}"
                                         action="{{ route('admin.users.destroy', $user) }}" method="POST"
                                         style="display:inline;">
                                         @csrf
                                         @method('DELETE')
-                                        @can('user_deletable')
-                                        <button class="btn btn-danger" type="button"
-                                            onclick="confirmDelete('deleteForm_{{ $user->id }}')">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
-                                            </svg>
-                                        </button>
+                                        @can('user_deletable', $user)
+                                            <button class="btn btn-danger" type="button"
+                                                onclick="confirmSendingToTrash('sendToTrashForm_{{ $user->id }}')">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
+                                                </svg>
+                                            </button>
                                         @endcan
                                     </form>
                                 @endif
@@ -101,6 +112,20 @@
         function confirmDelete(formId) {
             var deleteConfirmation = "{{ trans('app.delete_user') }}";
             if (confirm(deleteConfirmation)) {
+                document.getElementById(formId).submit();
+            }
+        }
+
+        function confirmSendingToTrash(formId) {
+            var sendToTrashConfirmation = "{{ trans('app.sendToTrash_user') }}";
+            if (confirm(sendToTrashConfirmation)) {
+                document.getElementById(formId).submit();
+            }
+        }
+
+        function confirmRestore(formId) {
+            var restoreConfirmation = "{{ trans('app.restore_user') }}";
+            if (confirm(restoreConfirmation)) {
                 document.getElementById(formId).submit();
             }
         }

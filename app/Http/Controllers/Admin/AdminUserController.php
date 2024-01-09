@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Models\User;
+use App\Models\Role;
+use App\Models\Department;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 class AdminUserController extends Controller
@@ -26,24 +29,14 @@ class AdminUserController extends Controller
         return view('admin.users.index', compact('usersPaginated', 'trashedCount'));
     }
 
-    public function indexFiltered(Request $request, $users)
-    {
-        $users->orderBy('surname')
-            ->orderBy('name')
-            ->orderBy('email')
-            ->orderBy('phoneNumber1')
-            ->paginate(config('app.pagination.default'));
-
-        $trashedCount = User::onlyTrashed()->count();
-        return view('admin.users.index', compact('users', 'trashedCount'));
-    }
-
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        $departments = Department::all();
+        $roles = Role::all();
+        return view('admin.users.create_edit', ['roles' => $roles, 'departments' => $departments]);
     }
 
     /**
@@ -51,7 +44,19 @@ class AdminUserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = new User();
+        $user->DNI = $request->DNI;
+        $user->name = $request->name;
+        $user->surname = $request->surname;
+        $user->phoneNumber1 = $request->phoneNumber1;
+        $user->phoneNumber2 = $request->phoneNumber2;
+        $user->address = $request->address;
+        $user->email = $request->email;
+        $user->password = Hash::make('elorrieta00');
+        $user->department_id = $request->department_id;
+        $user->save();
+        $user->roles()->attach($request->input('roles', []));
+        return redirect()->route('admin.users.index');
     }
 
     /**
@@ -67,7 +72,9 @@ class AdminUserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        $departments = Department::all();
+        $roles = Role::all();
+        return view('admin.users.create_edit', ['user' => $user, 'roles' => $roles, 'departments' => $departments]);
     }
 
     /**
@@ -75,9 +82,18 @@ class AdminUserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $user->password = $request->pass;
+        $user->name = $request->name;
+        $user->DNI = $request->DNI;
+        $user->name = $request->name;
+        $user->surname = $request->surname;
+        $user->phoneNumber1 = $request->phoneNumber1;
+        $user->phoneNumber2 = $request->phoneNumber2;
+        $user->address = $request->address;
+        $user->email = $request->email;
+        $user->department_id = $request->department_id;
+        $user->roles()->sync($request->input('roles', []));
         $user->save();
-
+        return redirect()->route('admin.users.index');
     }
 
     public function restore($id)
@@ -101,6 +117,7 @@ class AdminUserController extends Controller
      */
     public function destroy(User $user)
     {
+        $this->authorize('user_deletable', $user);
         $user->delete();
 
         return redirect()->route('admin.users.index');

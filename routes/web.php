@@ -65,6 +65,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resources([
             'modules' => AdminModuleController::class,
         ]);
+
     })->middleware('translate');
 
     //ROUTES FOR THE USER
@@ -75,5 +76,9 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/degrees', [App\Http\Controllers\PersonalUser\DegreeController::class, 'index'])->name('degrees.index');
             Route::get('/departments', [App\Http\Controllers\PersonalUser\DepartmentController::class, 'index'])->name('departments.index');
             Route::get('/departments/{department}', [App\Http\Controllers\PersonalUser\DepartmentController::class, 'show'])->name('departments.show');
+
         })->middleware('translate');
 });
+
+
+

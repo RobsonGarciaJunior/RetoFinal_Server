@@ -32,7 +32,7 @@
                                             action="{{ route('admin.roles.destroy', $role) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            @can('role_deletable', [$role->id])
+                                            @can('role_deletable', $role->id)
                                                 <button class="btn btn-danger" type="button"
                                                     onclick="confirmDelete('deleteForm_{{ $role->id }}')">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"

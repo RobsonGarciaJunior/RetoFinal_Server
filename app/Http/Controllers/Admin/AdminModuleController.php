@@ -56,7 +56,6 @@ class AdminModuleController extends Controller
      */
     public function edit(Module $module)
     {
-        #dd($module->degrees);
         $degrees = Degree::all();
         return view('admin.modules.create_edit', ['module' => $module, 'degrees' => $degrees]);
     }

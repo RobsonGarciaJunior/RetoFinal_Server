@@ -13,14 +13,14 @@
                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapse_{{ $degree->id }}" aria-expanded="true"
                             aria-controls="collapse_{{ $degree->id }}">
-                        {{ $degree->name }}
+                            <strong> {{ $degree->name }}</strong>
                     </button>
                 </h2>
                 <div id="collapse_{{ $degree->id }}" class="accordion-collapse collapse show"
                      aria-labelledby="heading_{{ $degree->id }}">
                     <div class="accordion-body">
                         @foreach ($degree->modules as $module)
-                        <p><strong>{{ $module->name }}</strong></p>
+                        <p>{{ $module->name }} {{ $module->code }}</p>
                         @endforeach
                     </div>
                 </div>

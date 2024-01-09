@@ -1,19 +1,26 @@
 #logo {
-    max-width: 150px;
+    max-width: 125px;
     height: auto;
 }
 .navbar{
-    background-color: rgb(60, 180, 229, 0.6);
+    /*background-color: rgb(60, 180, 229, 0.6);*/
+    background-color: rgba(0, 138, 171, 0.7)
 }
 .nav-item .nav-link{
     color:white
+}
+.nav-item .nav-link:hover{
+    color: #211261;
+}
+.nav-item .nav-link:active{
+    color: #211261;
 }
 .card .card-header{
     background-color:  #2B6BB5;
     color: white
 }
 #card-departamento {
-    background-color: rgba(0, 138, 171, 0.7);
+    background-color: rgb(60, 180, 229, 0.8);
     color: white;
 }
 #card-ciclo {
@@ -24,12 +31,33 @@
     color: white;
 }
 #link:hover {
-    color: #211261;
+    color: rgba(0, 138, 171, 1.0);
 }
 #link_admin{
     color: black;
 }
 .dropdown-menu a {
     text-decoration: none;
-    color: inherit;
 }
+.table-striped > tbody > tr:nth-of-type(2n+1) > * {
+   /*background-color: rgba(0, 138, 171, 0.4) !important;*/
+    background-color: rgb(60, 180, 229, 0.5);
+}
+.accordion-button:not(.collapsed){
+    background-color: rgb(60, 180, 229, 0.6) !important;
+}
+.dropdown-menu a:hover {
+    background-color: rgb(60, 180, 229, 0.6);
+    color:white
+}
+.nav-item:hover .nav-link {
+    background-color: #e0f7fa;
+    color:rgb(60, 180, 229, 0.6);
+}
+.nav-link.active {
+    background-color: #e0f7fa;
+    color: rgb(60, 180, 229, 0.6);
+}
+.bi {
+    font-size: 18px; /* Puedes ajustar el tamaño según tus necesidades */
+  }

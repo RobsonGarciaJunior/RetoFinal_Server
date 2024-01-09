@@ -102,11 +102,17 @@ class UserSeeder extends Seeder
 
         #Obtenemos todos los ciclos
         $degree = Degree::all();
+
         #Obtenemos el rol de alumno
         $rol = Role::find(Role::IS_STUDENT);
         #Creamos 50 alumnos
         User::factory(50)->student()->create()->each(function ($user) use ($degree, $rol) {
-            $user->degrees()->attach($degree->random(2));
+            $degreesOfStudent = $degree->random(2);
+        //    $modulesOfDegrees = $degreesOfStudent->flatMap(function ($degree) {
+        //        return $degree->modules;
+        //    })->pluck('id')->toArray();
+            $user->degrees()->attach($degreesOfStudent);
+        //    $user->modules()->attach($modulesOfDegrees);
             $user->roles()->attach($rol);
         });
 

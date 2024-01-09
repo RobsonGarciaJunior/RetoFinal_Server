@@ -79,6 +79,7 @@ class UserFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
+                'email' => 'admin@elorrieta.com',
                 'photo' => null,
                 'FCTDUAL' => null,
                 'department_id' => Department::find(1)->id,

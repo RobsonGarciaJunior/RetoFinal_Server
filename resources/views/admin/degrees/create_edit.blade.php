@@ -39,20 +39,20 @@
                     </option>
                 @endforeach
             </select>
-            <div class="form-group mb-3">
-                <label for="name" class="form-label">{{ trans('app.modules') }}</label>
-                @foreach ($modules as $module)
-                    <div>
-                        <label>
-                            <input type="checkbox" name="modules[]" id="modules[]" value="{{ $module->id }}"
-                                @if (isset($degree)) @if ($degree->modules->contains('name', $module->name))
+        </div>
+        <div class="form-group mb-3">
+            <label for="name" class="form-label">{{ trans('app.modules') }}</label>
+            @foreach ($modules as $module)
+                <div>
+                    <label>
+                        <input type="checkbox" name="modules[]" id="modules[]" value="{{ $module->id }}"
+                            @if (isset($degree)) @if ($degree->modules->contains('name', $module->name))
                                     checked @endif
-                                @endif>
-                            {{ $module->name }}
-                        </label>
-                    </div>
-                @endforeach
-            </div>
+                            @endif>
+                        {{ $module->name }}
+                    </label>
+                </div>
+            @endforeach
         </div>
         @if (isset($degree))
             <button type="submit" class="btn btn-primary">
