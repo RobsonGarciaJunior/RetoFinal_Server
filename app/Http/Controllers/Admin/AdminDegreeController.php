@@ -40,9 +40,14 @@ class AdminDegreeController extends Controller
         $degree->department_id = $request->department_id;
         $degree->save();
         $degree->modules()->attach($request->input('modules', []));
-
+        $degreeCreatedMessage = '';
+        if ($degree->wasRecentlyCreated) {
+            $degreeCreatedMessage = $degree->name . trans('app.degree_created_succesfully');
+        } else {
+            $degreeCreatedMessage = trans('app.degree_created_error');
+        }
         $degrees = Degree::all();
-        return redirect()->route('admin.degrees.index', ['degrees' => $degrees]);
+        return redirect()->route('admin.degrees.index', ['degrees' => $degrees])->with('message', $degreeCreatedMessage);
     }
 
     /**
@@ -50,7 +55,7 @@ class AdminDegreeController extends Controller
      */
     public function show(Degree $degree)
     {
-        //
+        return view('admin.degrees.show', ['degree' => $degree]);
     }
 
     /**
@@ -68,13 +73,33 @@ class AdminDegreeController extends Controller
      */
     public function update(Request $request, Degree $degree)
     {
+        // Guarda los valores actuales antes de la actualización
+        $previousValues = $degree->getAttributes();
+        $previousModulesQuantity = $degree->modules->count();
+
         $degree->name = $request->name;
         $degree->department_id = $request->department_id;
         $degree->modules()->sync($request->input('modules', []));
         $degree->save();
 
+        // Obtiene los valores después de la actualización
+        $currentValues = $degree->fresh()->getAttributes();
+        $currentModulesQuantity = $degree->fresh()->modules->count();
+        // Compara los valores antes y después para determinar si hubo cambios
+        $changesDetected = array_diff_assoc($currentValues, $previousValues);
+        $degreeUpdatedMessage = '';
+
+        if (!empty($changesDetected) || $previousModulesQuantity != $currentModulesQuantity) {
+            // El registro fue actualizado recientemente
+            $degreeUpdatedMessage = trans('app.degree_updated_succesfully');
+        } else if (empty($changesDetected) && $previousModulesQuantity == $currentModulesQuantity) {
+            $degreeUpdatedMessage = trans('app.degree_updated_noChanges') . $degree->name;
+        } else {
+            // El registro no ha sido actualizado
+            $degreeUpdatedMessage = trans('app.degree_updated_error');
+        }
         $degrees = Degree::all();
-        return redirect()->route('admin.degrees.index', ['degrees' => $degrees]);
+        return redirect()->route('admin.degrees.index', ['degrees' => $degrees])->with('message', $degreeUpdatedMessage);
     }
 
     /**
@@ -82,9 +107,19 @@ class AdminDegreeController extends Controller
      */
     public function destroy(Degree $degree)
     {
+        $degreeName = $degree->name;
         $degree->delete();
 
+        $degreeDeletedMessage = '';
+
+        if (!$degree->exists) {
+            // El registro ya no existe en la base de datos
+            $degreeDeletedMessage = $degreeName . trans('app.degree_deleted_succesfully');
+        } else {
+            // El registro fue eliminado recientemente
+            $degreeDeletedMessage = trans('app.degree_deleted_error');
+        }
         $degrees = Degree::all();
-        return view('admin.degrees.index', ['degrees' => $degrees]);
+        return redirect()->route('admin.degrees.index', ['degrees' => $degrees])->with('message', $degreeDeletedMessage);
     }
 }

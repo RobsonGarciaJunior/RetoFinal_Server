@@ -10,7 +10,7 @@ class Role extends Model
     use HasFactory;
 
     protected $visible = ['id', 'name'];
-    public function roles() {
+    public function users() {
         return $this->belongsToMany(User::class, 'user_role', 'role_id', 'user_id');
     }
 

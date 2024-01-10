@@ -1,112 +1,142 @@
 @extends('layouts.admin')
 @section('content')
     <div class="container">
-        <div class="card">
-            <div class="card-header">
-                @if (isset($user))
-                    {{ trans('app.edit_user') }}
-                @else
-                    {{ trans('app.create_user') }}
-                @endif
-                <form class="mt-2" name="create_platform"
-                    @if (isset($user)) action="{{ route('admin.users.update', $user) }}"
-                @else
-                action="{{ route('admin.users.store') }}" @endif
-                    method="POST" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mt-3">
+                    <div class="card-header">
+                        @if (isset($user))
+                            <h4 class="mt-2"> {{ trans('app.edit_user') }} </h4>
+                        @else
+                            <h4 class="mt-2">{{ trans('app.create_user') }} </h4>
+                        @endif
+                    </div>
+                    <div class="card-body">
+                        <form class="mt-2" name="create_platform"
+                            @if (isset($user)) action="{{ route('admin.users.update', $user) }}"
+                            @else
+                            action="{{ route('admin.users.store') }}" @endif
+                            method="POST" enctype="multipart/form-data">
 
-                    @csrf
-                    @if (isset($user))
-                        @method('PUT')
-                    @endif
+                            @csrf
+                            @if (isset($user))
+                                @method('PUT')
+                            @endif
+                            <div class="form-group mb-3">
+                                <label for="DNI" class="form-label">{{ trans('app.DNI') }}</label>
+                                <input type="text" class="form-control" id="DNI" name="DNI" required
+                                    value="{{ isset($user) ? $user->DNI : '' }}" />
+                            </div>
+                            <div class="d-flex">
+                                <div class="flex-fill me-3">
+                                    <div class="form-group mb-3">
+                                        <label for="name" class="form-label">{{ trans('app.name') }}</label>
+                                        <input type="text" oninput="updateEmail()" class="form-control" id="name"
+                                            name="name" required value="{{ isset($user) ? $user->name : '' }}" />
+                                    </div>
+                                </div>
+                                <div class="flex-fill me-3">
+                                    <div class="form-group mb-3">
+                                        <label for="surname" class="form-label">{{ trans('app.surname') }}</label>
+                                        <input type="text" oninput="updateEmail()" class="form-control" id="surname"
+                                            name="surname" required value="{{ isset($user) ? $user->surname : '' }}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div class="flex-fill me-3">
+                                    <div class="form-group mb-3">
+                                        <label for="phoneNumber1" class="form-label">{{ trans('app.phoneNumber1') }}</label>
+                                        <input type="number" class="form-control" id="phoneNumber1" name="phoneNumber1" required
+                                            value="{{ isset($user) ? $user->phoneNumber1 : '' }}" min="111111111" />
+                                    </div>
+                                </div>
+                                <div class="flex-fill me-3">
+                                    <div class="form-group mb-3">
+                                        <label for="phoneNumber2" class="form-label">{{ trans('app.phoneNumber2') }}</label>
+                                        <input type="number" class="form-control" id="phoneNumber2" name="phoneNumber2" required
+                                            value="{{ isset($user) ? $user->phoneNumber2 : '' }}" min="111111111" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="address" class="form-label">{{ trans('app.address') }}</label>
+                                <input type="text" class="form-control" id="address" name="address" required
+                                    value="{{ isset($user) ? $user->address : '' }}" />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="email" class="form-label">{{ trans('app.email') }}</label>
+                                <input type="email" class="form-control" id="email" name="email" readonly required
+                                    value="{{ isset($user) ? $user->email : '' }}" />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="name" class="form-label">{{ trans('app.department') }}</label>
+                                <select class="form-select" name="department_id" id="department_id"
+                                    @if (!isset($user->department)) disabled="disabled" @endif required>
+                                    @if (isset($user->department))
+                                        <option value="" disabled selected></option>
+                                        @foreach ($departments as $department)
+                                            <!-- Comprobamos que el usuario no sea nulo para saber si estamos en editar o crear -->
+                                            <!-- Luego si no es nulo, significa que estamos en editar y hay que hacer otra comprobacion para saber que departamento hemos pasado a la vista -->
+                                            <option value="{{ $department->id }}"
+                                                @if (isset($user)) @if ($user->department->name == $department->name)
+                                                selected @endif
+                                                @endif>
+                                                {{ $department->name }}
+                                            </option>
+                                        @endforeach
+                                    @else
+                                        <option value="" disabled selected></option>
+                                        @foreach ($departments as $department)
+                                            <!-- Comprobamos que el usuario no sea nulo para saber si estamos en editar o crear -->
+                                            <!-- Luego en este caso, aunque ya sabemos que el usuario no tiene departamentos, aun asi necesitamos cargarlos para que los pueda seleccionar -->
+                                            <option value="{{ $department->id }}"
+                                                @if (isset($user))  @endif>
+                                                {{ $department->name }}
+                                            </option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="name" class="form-label">{{ trans('app.roles') }}</label>
+                                <div class="card p-3">
+                                    <div class="row">
+                                        @foreach ($roles as $role)
+                                            <div class="col-md-4 mb-3">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <label class="checkbox-inline">
+                                                            <input onchange="updateDepartmentSelection(this)"
+                                                                type="checkbox" name="roles[]" id="roles[]"
+                                                                value="{{ $role->id }}"
+                                                                @if (isset($user)) @if ($user->roles->contains('name', $role->name))
+                                                                checked @endif
+                                                                @endif>
+                                                            {{ $role->name }}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <div class="form-group  mt-2 text-center">
+                                    @if (isset($user))
+                                        <button type="submit" class="btn btn-warning">
+                                            {{ trans('app.update') }}
+                                        </button>
+                                    @else
+                                        <button type="submit" class="btn btn-success">
+                                            {{ trans('app.create') }}
+                                        </button>
+                                    @endif
+                                </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="form-group mb-3">
-            <label for="DNI" class="form-label">{{ trans('app.DNI') }}</label>
-            <input type="text" class="form-control" id="DNI" name="DNI" required
-                value="{{ isset($user) ? $user->DNI : '' }}" />
-        </div>
-        <div class="form-group mb-3">
-            <label for="name" class="form-label">{{ trans('app.name') }}</label>
-            <input type="text" oninput="updateEmail()" class="form-control" id="name" name="name" required
-                value="{{ isset($user) ? $user->name : '' }}" />
-        </div>
-        <div class="form-group mb-3">
-            <label for="surname" class="form-label">{{ trans('app.surname') }}</label>
-            <input type="text" oninput="updateEmail()" class="form-control" id="surname" name="surname" required
-                value="{{ isset($user) ? $user->surname : '' }}" />
-        </div>
-        <div class="form-group mb-3">
-            <label for="phoneNumber1" class="form-label">{{ trans('app.phoneNumber1') }}</label>
-            <input type="number" class="form-control" id="phoneNumber1" name="phoneNumber1" required
-                value="{{ isset($user) ? $user->phoneNumber1 : '' }}" />
-        </div>
-        <div class="form-group mb-3">
-            <label for="phoneNumber2" class="form-label">{{ trans('app.phoneNumber2') }}</label>
-            <input type="number" class="form-control" id="phoneNumber2" name="phoneNumber2" required
-                value="{{ isset($user) ? $user->phoneNumber2 : '' }}" />
-        </div>
-        <div class="form-group mb-3">
-            <label for="address" class="form-label">{{ trans('app.address') }}</label>
-            <input type="text" class="form-control" id="address" name="address" required
-                value="{{ isset($user) ? $user->address : '' }}" />
-        </div>
-        <div class="form-group mb-3">
-            <label for="email" class="form-label">{{ trans('app.email') }}</label>
-            <input type="email" class="form-control" id="email" name="email" readonly required
-                value="{{ isset($user) ? $user->email : '' }}" />
-        </div>
-        <div class="form-group mb-3">
-            <label for="name" class="form-label">{{ trans('app.department') }}</label>
-            <select class="form-select" name="department_id" id="department_id"
-                @if (!isset($user->department)) disabled="disabled" @endif required>
-                @if (isset($user->department))
-                    <option value="" disabled selected></option>
-                    @foreach ($departments as $department)
-                        <!-- Comprobamos que el usuario no sea nulo para saber si estamos en editar o crear -->
-                        <!-- Luego si no es nulo, significa que estamos en editar y hay que hacer otra comprobacion para saber que departamento hemos pasado a la vista -->
-                        <option value="{{ $department->id }}"
-                            @if (isset($user)) @if ($user->department->name == $department->name)
-                            selected @endif
-                            @endif>
-                            {{ $department->name }}
-                        </option>
-                    @endforeach
-                @else
-                    <option value="" disabled selected></option>
-                    @foreach ($departments as $department)
-                        <!-- Comprobamos que el usuario no sea nulo para saber si estamos en editar o crear -->
-                        <!-- Luego en este caso, aunque ya sabemos que el usuario no tiene departamentos, aun asi necesitamos cargarlos para que los pueda seleccionar -->
-                        <option value="{{ $department->id }}" @if (isset($user))  @endif>
-                            {{ $department->name }}
-                        </option>
-                    @endforeach
-                @endif
-            </select>
-        </div>
-        <div class="form-group mb-3">
-            <label for="name" class="form-label">{{ trans('app.roles') }}</label>
-            @foreach ($roles as $role)
-                <div>
-                    <label>
-                        <input onchange="updateDepartmentSelection(this)" type="checkbox" name="roles[]" id="roles[]"
-                            value="{{ $role->id }}"
-                            @if (isset($user)) @if ($user->roles->contains('name', $role->name))
-                                checked @endif
-                            @endif>
-                        {{ $role->name }}
-                    </label>
-                </div>
-            @endforeach
-        </div>
-        @if (isset($user))
-            <button type="submit" class="btn btn-primary">
-                {{ trans('app.update') }}
-            </button>
-        @else
-            <button type="submit" class="btn btn-success">
-                {{ trans('app.create') }}
-            </button>
-        @endif
     </div>
     <script>
         function updateDepartmentSelection(checkbox) {

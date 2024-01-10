@@ -44,10 +44,12 @@ return [
     'edit_department' => 'Edición de departamento',
     'edit_module' => 'Edición de módulo',
     'edit_user' => 'Edición de usuario',
+    'edit_role' => 'Edición de rol',
     'create_degree' => 'Creación de ciclo',
     'create_department' => 'Creación de departamento',
     'create_module' => 'Creación de módulo',
     'create_user' => 'Creación de usuario',
+    'create_role' => 'Creación de rol',
     'department' => 'Departmento',
     'create' => 'Crear',
     'update' => 'Actualizar',
@@ -62,10 +64,63 @@ return [
     'statistics' => 'Estadísticas de Elorrieta-Errekamari',
     'no_students_module' => "No hay estudiantes matriculados en este módulo.",
     'home' => "Panel personal de",
+    'delete_forever' => 'Borrar definitivamente',
+    'restore' => 'Restaurar',
+    'archived'=> 'Archivados',
+    'welcome' => '¡Bienvenid@ a Elorrieta-Errekamari!',
+    'users_department' => 'Estos son los usuarios que pertenecen al departamento',
+    'users_role' => 'Estos son los usuarios que tienen este rol',
     //User data//
     'DNI' => 'DNI',
     'phoneNumber1' => 'Telefono 1',
     'phoneNumber2' => 'Telefono 2',
-    'address' => 'Dirección'
+    'address' => 'Dirección',
     ////
+     //Degree Controller//
+     'degree_created_succesfully' => ' creado correctamente',
+     'degree_created_error' => 'Error al crear el ciclo',
+     'degree_updated_succesfully' => 'Ciclo actualizado correctamente',
+     'degree_updated_noChanges' => 'No ha habido ningun cambio para ',
+     'degree_updated_error' => ' Error al actualizar el ciclo',
+     'degree_deleted_succesfully' => ' eliminado correctamente',
+     'degree_deleted_error' => 'Error al eliminar el ciclo',
+     ////
+     //Department Controller//
+     'department_created_succesfully' => ' creado correctamente',
+     'department_created_error' => 'Error al crear el departamento',
+     'department_updated_succesfully' => 'Departamento actualizado correctamente',
+     'department_updated_noChanges' => 'No ha habido ningun cambio para ',
+     'department_updated_error' => 'Error al actualizar el departamento',
+     'department_deleted_succesfully' => ' eliminado correctamente',
+     'department_deleted_error' => 'Error al elimnar el departamento',
+     ////
+     //Module Controller//
+     'module_created_succesfully' => ' creado correctamente',
+     'module_created_error' => 'Error al crear el módulo',
+     'module_updated_succesfully' => 'Módulo actualizado correctamente',
+     'module_updated_noChanges' => 'No ha habido ningun cambio para ',
+     'module_updated_error' => 'Error al actualizar el módulo',
+     'module_deleted_succesfully' => ' eliminado correctamente',
+     'module_deleted_error' => 'Error al eliminar el módulo',
+     ////
+     //Role Controller//
+     'role_created_succesfully' => ' creado correctamente',
+     'role_created_error' => ' Error al crear el rol',
+     'role_updated_succesfully' => 'Rol actualizado correctamente',
+     'role_updated_noChanges' => 'No ha habido ningun cambio para ',
+     'role_updated_error' => 'Error al actualizar el rol',
+     'role_deleted_succesfully' => ' eliminado correctamente',
+     'role_deleted_error' => 'Error al eliminar el rol',
+     ////
+     //User Controller//
+     'user_created_succesfully' => '  creado correctamente',
+     'user_created_error' => 'Error al crear el usuario',
+     'user_updated_succesfully' => 'Usuario actualizado correctamente',
+     'user_updated_noChanges' => 'No ha habido ningun cambio para ',
+     'user_updated_error' => 'Error al actualizar el usuario',
+     'user_soft_deleted_successfully' => ' ha sido archivado',
+     'user_soft_deleted_error' => ' Error al archivar el usuario',
+     'user_deleted_succesfully' => ' eliminado correctamente',
+     'user_deleted_error' => 'Error al eliminar el usuario',
+     ////
 ];

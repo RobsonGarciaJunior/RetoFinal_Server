@@ -11,7 +11,7 @@ class Module extends Model
     protected $visible = ['id', 'name', 'code'];
     public function users()
     {
-        return $this->belongsToMany(User::class, 'user_module', 'user_id', 'module_id');
+        return $this->belongsToMany(User::class, 'user_module', 'module_id', 'user_id');
     }
     public function degrees()
     {

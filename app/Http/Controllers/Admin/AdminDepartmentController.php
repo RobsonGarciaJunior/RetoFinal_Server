@@ -10,13 +10,13 @@ use Illuminate\Http\Request;
 
 class AdminDepartmentController extends Controller
 {
-   /**
+    /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $departments = Department::all();
-        return view('admin.departments.index',['departments' => $departments]);
+        return view('admin.departments.index', ['departments' => $departments]);
     }
 
     /**
@@ -35,9 +35,15 @@ class AdminDepartmentController extends Controller
         $department = new Department();
         $department->name = $request->name;
         $department->save();
+        $departmentCreatedMessage = '';
 
+        if ($department->wasRecentlyCreated) {
+            $departmentCreatedMessage = $department->name . trans('app.department_created_succesfully');
+        } else {
+            $departmentCreatedMessage = trans('app.department_created_error');
+        }
         $departments = Department::all();
-        return view('admin.departments.index',['departments' => $departments]);
+        return redirect()->route('admin.departments.index', ['departments' => $departments])->with('message', $departmentCreatedMessage);
     }
 
     /**
@@ -45,7 +51,11 @@ class AdminDepartmentController extends Controller
      */
     public function show(Department $department)
     {
-       //
+        $users = $department->users()->orderBy('surname')
+        ->orderBy('name')
+        ->orderBy('email')
+        ->orderBy('phoneNumber1')->paginate(config('app.pagination.default'));
+        return view('admin.departments.show', compact('department', 'users'));
     }
 
     /**
@@ -61,11 +71,29 @@ class AdminDepartmentController extends Controller
      */
     public function update(Request $request, Department $department)
     {
+        // Guarda los valores actuales antes de la actualización
+        $previousValues = $department->getAttributes();
+
         $department->name = $request->name;
         $department->save();
+        // Obtiene los valores después de la actualización
+        $currentValues = $department->fresh()->getAttributes();
 
+        $departmentUpdatedMessage = '';
+        // Compara los valores antes y después para determinar si hubo cambios
+        $changesDetected = array_diff_assoc($currentValues, $previousValues);
+
+        if (!empty($changesDetected)) {
+            // El registro fue actualizado recientemente
+            $departmentUpdatedMessage = trans('app.department_updated_succesfully');
+        } else if (empty($changesDetected)) {
+            $departmentUpdatedMessage = trans('app.department_updated_noChanges') . $department->name;
+        } else {
+            // El registro no ha sido actualizado
+            $departmentUpdatedMessage = trans('app.department_updated_error');
+        }
         $departments = Department::all();
-        return view('admin.departments.index',['departments' => $departments]);
+        return redirect()->route('admin.departments.index', ['departments' => $departments])->with('message', $departmentUpdatedMessage);
     }
 
     /**
@@ -73,9 +101,19 @@ class AdminDepartmentController extends Controller
      */
     public function destroy(Department $department)
     {
+        $departmentName = $department->name;
         $department->delete();
+        $departmentDeletedMessage = '';
+
+        if (!$department->exists) {
+            // El registro ya no existe en la base de datos
+            $departmentDeletedMessage = $departmentName . trans('app.department_deleted_succesfully');
+        } else {
+            // El registro fue eliminado recientemente
+            $departmentDeletedMessage = trans('app.department_deleted_error');
+        }
 
         $departments = Department::all();
-        return view('admin.departments.index', ['departments' => $departments]);
+        return redirect()->route('admin.departments.index', ['departments' => $departments])->with('message', $departmentDeletedMessage);
     }
 }

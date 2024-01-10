@@ -12,7 +12,7 @@ class Degree extends Model
     protected $visible = ['id', 'name', 'modules'];
     public function users()
     {
-        return $this->belongsToMany(User::class, 'user_degree', 'user_id', 'degree_id')->withPivot('year_of_degree', 'registration_date');
+        return $this->belongsToMany(User::class, 'user_degree', 'degree_id', 'user_id')->withPivot('year_of_degree', 'registration_date');
     }
     public function modules()
     {

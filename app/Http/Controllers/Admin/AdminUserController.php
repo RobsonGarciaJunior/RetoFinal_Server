@@ -56,7 +56,16 @@ class AdminUserController extends Controller
         $user->department_id = $request->department_id;
         $user->save();
         $user->roles()->attach($request->input('roles', []));
-        return redirect()->route('admin.users.index');
+
+        $userCreatedMessage = '';
+
+        if ($user->wasRecentlyCreated) {
+            $userCreatedMessage = $user->name . trans('app.user_created_succesfully');
+        } else {
+            $userCreatedMessage = trans('app.user_created_error');
+        }
+
+        return redirect()->route('admin.users.index')->with('message', $userCreatedMessage);
     }
 
     /**
@@ -64,7 +73,7 @@ class AdminUserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return view('admin.users.show', ['user' => $user]);
     }
 
     /**
@@ -82,6 +91,10 @@ class AdminUserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        // Guarda los valores actuales antes de la actualización
+        $previousValues = $user->getAttributes();
+        $previousRolesQuantity = $user->roles->count();
+
         $user->name = $request->name;
         $user->DNI = $request->DNI;
         $user->name = $request->name;
@@ -93,7 +106,22 @@ class AdminUserController extends Controller
         $user->department_id = $request->department_id;
         $user->roles()->sync($request->input('roles', []));
         $user->save();
-        return redirect()->route('admin.users.index');
+        // Obtiene los valores después de la actualización
+        $currentValues = $user->fresh()->getAttributes();
+        $currentRolesQuantity = $user->fresh()->roles->count();
+        // Compara los valores antes y después para determinar si hubo cambios
+        $changesDetected = array_diff_assoc($currentValues, $previousValues);
+        $userUpdatedMessage = '';
+        if (!empty($changesDetected) || $previousRolesQuantity != $currentRolesQuantity) {
+            // El registro fue actualizado recientemente
+            $userUpdatedMessage = trans('app.user_updated_succesfully');
+        } else if (empty($changesDetected) && $previousRolesQuantity == $currentRolesQuantity) {
+            $userUpdatedMessage = trans('app.user_updated_noChanges') . $user->name;
+        } else {
+            // El registro no ha sido actualizado
+            $userUpdatedMessage = trans('app.user_updated_error');
+        }
+        return redirect()->route('admin.users.index')->with('message', $userUpdatedMessage);;
     }
 
     public function restore($id)
@@ -118,8 +146,17 @@ class AdminUserController extends Controller
     public function destroy(User $user)
     {
         $this->authorize('user_deletable', $user);
+        $userName = $user->name;
         $user->delete();
+        $userDeletedMessage = '';
 
-        return redirect()->route('admin.users.index');
+        if ($user->trashed()) {
+            // El registro ya no existe en la base de datos
+            $userDeletedMessage = $userName . trans('app.user_soft_deleted_successfully');
+        } else {
+            // El registro fue eliminado recientemente
+            $userDeletedMessage = trans('app.user_soft_deleted_error');
+        }
+        return redirect()->route('admin.users.index')->with('message', $userDeletedMessage);
     }
 }
