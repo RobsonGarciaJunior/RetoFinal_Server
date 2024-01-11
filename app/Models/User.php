@@ -59,16 +59,18 @@ class User extends Authenticatable
         return $this->belongsTo(Department::class, 'department_id');
     }
 
-    public function roles() {
+    public function roles()
+    {
         return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id');
     }
 
-    public function degrees() {
+    public function degrees()
+    {
         return $this->belongsToMany(Degree::class, 'user_degree', 'user_id', 'degree_id')->withPivot('year_of_degree', 'registration_date');
     }
 
-    public function modules() {
-        return $this->belongsToMany(Module::class, 'user_module', 'user_id', 'module_id');
+    public function modules()
+    {
+        return $this->belongsToMany(Module::class, 'user_module', 'user_id', 'module_id')->withPivot('year_of_impartion');
     }
-
 }

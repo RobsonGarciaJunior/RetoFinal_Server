@@ -25,7 +25,7 @@ class DegreeSeeder extends Seeder
         ])->get();
         #Creamos SMR
         DB::table('degrees')->insert([
-            'name' => 'SMR',
+            'name' => 'Sistemas Microinformáticos y Redes',
             'department_id' => 2,
             'created_at' => now(),
         ]);
@@ -43,7 +43,7 @@ class DegreeSeeder extends Seeder
         ])->get();
         #Creamos DAM
         DB::table('degrees')->insert([
-            'name' => 'DAM',
+            'name' => 'Desarrollo de Aplicaciones Multiplataforma',
             'department_id' => 2,
             'created_at' => now(),
         ]);
@@ -54,7 +54,7 @@ class DegreeSeeder extends Seeder
 
         #Creamos DAW
         DB::table('degrees')->insert([
-            'name' => 'DAW',
+            'name' => 'Desarrollo de Aplicaciones Web',
             'department_id' => 2,
             'created_at' => now(),
         ]);

@@ -107,12 +107,27 @@ class UserSeeder extends Seeder
         $rol = Role::find(Role::IS_STUDENT);
         #Creamos 50 alumnos
         User::factory(50)->student()->create()->each(function ($user) use ($degree, $rol) {
-            $degreesOfStudent = $degree->random(2);
-        //    $modulesOfDegrees = $degreesOfStudent->flatMap(function ($degree) {
-        //        return $degree->modules;
-        //    })->pluck('id')->toArray();
+            $degreesOfStudent = $degree->shuffle()->unique()->take(2);
             $user->degrees()->attach($degreesOfStudent);
-        //    $user->modules()->attach($modulesOfDegrees);
+            $uniqueModulesSet = collect();
+            foreach ($degreesOfStudent as $actualDegree) {
+                $modulesOfDegrees = $actualDegree->modules;
+
+                // Utiliza unique para obtener módulos únicos basados en su identificador 'id'
+                $uniqueModules = $modulesOfDegrees->unique('id');
+
+                // Filtra los módulos que ya están en el conjunto
+                $newModules = $modulesOfDegrees->diff($uniqueModulesSet);
+
+                // Agrega los nuevos módulos al conjunto
+                $uniqueModulesSet = $uniqueModulesSet->merge($newModules);
+
+                // Hace el attach solo si hay nuevos módulos
+                if ($newModules->isNotEmpty()) {
+                    $user->modules()->attach($newModules);
+                }
+            }
+
             $user->roles()->attach($rol);
         });
 

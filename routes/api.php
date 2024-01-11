@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,4 +27,7 @@ Route::post('/changePassword', [AuthController::class, 'changePassword'])->middl
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
-Route::get('/users', [UserController::class, 'index']);
+//2 Getters from different Models
+Route::get('/documentation/users', [UserController::class, 'index']);
+Route::get('/documentation/roles', [RoleController::class, 'index']);
+

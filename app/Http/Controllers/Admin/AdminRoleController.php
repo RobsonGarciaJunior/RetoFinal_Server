@@ -52,9 +52,9 @@ class AdminRoleController extends Controller
     public function show(Role $role)
     {
         $users = $role->users()->orderBy('surname')
-        ->orderBy('name')
-        ->orderBy('email')
-        ->orderBy('phoneNumber1')->paginate(config('app.pagination.default'));
+            ->orderBy('name')
+            ->orderBy('email')
+            ->orderBy('phoneNumber1')->paginate(config('app.pagination.default'));
         return view('admin.roles.show', compact('role', 'users'));
     }
 

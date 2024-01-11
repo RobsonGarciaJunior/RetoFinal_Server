@@ -78,3 +78,8 @@
 {
     color:#211261 !important;
 }
+.full-height {
+    min-height: 93.5vh;
+    display: flex;
+    flex-direction: column;
+}

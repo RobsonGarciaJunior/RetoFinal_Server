@@ -17,13 +17,47 @@ class AdminUserController extends Controller
      */
     public function index(Request $request)
     {
-        $usersPaginated = User::with('department')->when($request->has('archive'), function ($query) {
-            return $query->onlyTrashed();
-        })->orderBy('surname')
+        if ($request->has('archive')) {
+            $usersPaginated = User::with('department')->when($request->has('archive'), function ($query) {
+                return $query->onlyTrashed();
+            })->orderBy('surname')
+                ->orderBy('name')
+                ->orderBy('email')
+                ->orderBy('phoneNumber1')
+                ->paginate(config('app.pagination.default'));
+        } else if ($request->has('students')) {
+            $usersPaginated = User::whereHas('roles', function ($query) {
+                $query->where('id', 3);
+            })
+            ->orderBy('surname')
             ->orderBy('name')
             ->orderBy('email')
             ->orderBy('phoneNumber1')
             ->paginate(config('app.pagination.default'));
+        } else if ($request->has('personnel')) {
+            $usersPaginated = User::whereDoesntHave('roles', function ($query) {
+                $query->where('id', 3);
+            })
+            ->orderBy('surname')
+            ->orderBy('name')
+            ->orderBy('email')
+            ->orderBy('phoneNumber1')
+            ->paginate(config('app.pagination.default'));
+        } elseif ($request->has('noRole')) {
+            $usersPaginated = User::whereDoesntHave('roles')
+                ->orderBy('surname')
+                ->orderBy('name')
+                ->orderBy('email')
+                ->orderBy('phoneNumber1')
+                ->paginate(config('app.pagination.default'));
+
+        }else{
+            $usersPaginated = User::orderBy('surname')
+            ->orderBy('name')
+            ->orderBy('email')
+            ->orderBy('phoneNumber1')
+            ->paginate(config('app.pagination.default'));
+        }
 
         $trashedCount = User::onlyTrashed()->count();
         return view('admin.users.index', compact('usersPaginated', 'trashedCount'));

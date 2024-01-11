@@ -1,6 +1,8 @@
 @extends('layouts.admin')
 
 @section('content')
+
+<button id="darkModeToggle">Cambiar Modo</button>
     <div class="container-fluid">
         <div class="container-fluid">
             <div class="align-items-center mb-4">
@@ -15,7 +17,7 @@
                                     <div class="text-xs font-weight-bold text-uppercase mb-1 text-center adminText">
                                         {{ trans('app.total_students') }}</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
-                                            <a class="linkAdmin" href="{{ route('admin.users.index', ['students' => $students]) }}"
+                                            <a class="linkAdmin" href="{{ route('admin.users.index', ['students' => 1]) }}"
                                             style="display: inline;">{{$students->count()}}
                                         </a></div>
                                 </div>
@@ -31,7 +33,7 @@
                                     <div class="text-xs font-weight-bold text-uppercase mb-1 text-center adminText">
                                         {{ trans('app.total_personnel') }}</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
-                                            <a class="linkAdmin" href="{{ route('admin.users.index', ['personnel' => $personnel]) }}"
+                                            <a class="linkAdmin" href="{{ route('admin.users.index', ['personnel' => 1]) }}"
                                             style="display: inline;">{{$personnel->count()}}
                                         </a>
                                         </div>
@@ -48,7 +50,7 @@
                                     <div class="text-xs font-weight-bold text-uppercase mb-1 text-center adminText">
                                         {{ trans('app.total_no_role') }}</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
-                                            <a class="linkAdmin" href="{{ route('admin.users.index', ['noRole' => $noRole]) }}"
+                                            <a class="linkAdmin" href="{{ route('admin.users.index', ['noRole' => 1]) }}"
                                             style="display: inline;">{{$noRole->count()}}
                                         </a></div>
                                 </div>
