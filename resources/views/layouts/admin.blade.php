@@ -54,7 +54,8 @@
                     <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a id="link_admin" class="nav-link d-flex align-items-center gap-2 {{ Request::is('admin/degrees*') ? 'active' : '' }}"
+                                <a id="link_admin"
+                                    class="nav-link d-flex align-items-center gap-2 {{ Request::is('admin/degrees*') ? 'active' : '' }}"
                                     aria-current="page" href="{{ route('admin.degrees.index') }}">
                                     <span class="material-symbols-outlined">
                                         school
@@ -63,7 +64,8 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a id="link_admin" class="nav-link d-flex align-items-center gap-2 {{ Request::is('admin/departments*') ? 'active' : '' }}"
+                                <a id="link_admin"
+                                    class="nav-link d-flex align-items-center gap-2 {{ Request::is('admin/departments*') ? 'active' : '' }}"
                                     href="{{ route('admin.departments.index') }}">
                                     <span class="material-symbols-outlined">
                                         work
@@ -72,7 +74,8 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a id="link_admin" class="nav-link d-flex align-items-center gap-2 {{ Request::is('admin/modules*') ? 'active' : '' }}"
+                                <a id="link_admin"
+                                    class="nav-link d-flex align-items-center gap-2 {{ Request::is('admin/modules*') ? 'active' : '' }}"
                                     href="{{ route('admin.modules.index') }}">
                                     <span class="material-symbols-outlined">
                                         collections_bookmark
@@ -81,7 +84,8 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a id="link_admin" class="nav-link d-flex align-items-center gap-2 {{ Request::is('admin/roles*') ? 'active' : '' }}"
+                                <a id="link_admin"
+                                    class="nav-link d-flex align-items-center gap-2 {{ Request::is('admin/roles*') ? 'active' : '' }}"
                                     href="{{ route('admin.roles.index') }}">
                                     <span class="material-symbols-outlined">
                                         theater_comedy
@@ -90,7 +94,8 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a id="link_admin" class="nav-link d-flex align-items-center gap-2 {{ Request::is('admin/users*') ? 'active' : '' }}"
+                                <a id="link_admin"
+                                    class="nav-link d-flex align-items-center gap-2 {{ Request::is('admin/users*') ? 'active' : '' }}"
                                     href="{{ route('admin.users.index') }}">
                                     <i class="bi bi-people-fill"></i>
                                     {{ trans('app.users') }}
@@ -99,8 +104,22 @@
                         </ul>
 
                         <hr class="my-3">
-
                         <ul class="nav flex-column mb-auto">
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="modeDropDown"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-translate"></i>
+                                    modo
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-bottom" aria-labelledby="languageDropdown">
+                                    <li>
+                                        <button id="light_mode" class="dropdown-item">CLARO</button>
+                                    </li>
+                                    <li>
+                                        <button id="dark_mode" class="dropdown-item">OSCURO</button>
+                                    </li>
+                                </ul>
+                            </div>
                             <div class="dropdown">
                                 <button class="btn dropdown-toggle" type="button" id="languageDropdown"
                                     data-bs-toggle="dropdown" aria-expanded="false">
@@ -115,13 +134,15 @@
                                             {{ trans('app.english') }}</a></li>
                                 </ul>
                             </div>
-                            <li class="nav-item">
-                                <a id="link_admin" class="nav-link d-flex align-items-center gap-2"
-                                    href={{ '/home' }}>
-                                    <i class="bi bi-wrench-adjustable-circle"></i>
-                                    {{ trans('app.user_panel') }}
-                                </a>
-                            </li>
+                            @can('see_user_panel')
+                                <li class="nav-item">
+                                    <a id="link_admin" class="nav-link d-flex align-items-center gap-2"
+                                        href={{ '/home' }}>
+                                        <i class="bi bi-wrench-adjustable-circle"></i>
+                                        {{ trans('app.user_panel') }}
+                                    </a>
+                                </li>
+                            @endcan
                             <li class="nav-item">
                                 <a id="link_admin" class="nav-link d-flex align-items-center gap-2"
                                     href="{{ route('logout') }}"
@@ -147,5 +168,4 @@
         </div>
     </div>
 </body>
-
 </html>

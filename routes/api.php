@@ -30,4 +30,3 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
 //2 Getters from different Models
 Route::get('/documentation/users', [UserController::class, 'index']);
 Route::get('/documentation/roles', [RoleController::class, 'index']);
-

@@ -1,21 +1,38 @@
 import './bootstrap';
 
 document.addEventListener('DOMContentLoaded', function () {
-    const toggleButton = document.getElementById('darkModeToggle');
-    toggleButton.addEventListener('click', () => {
-        document.body.classList.toggle('bg-light');
-        document.body.classList.toggle('bg-dark');
-        document.body.classList.toggle('text-light');
-        document.body.classList.toggle('text-dark');
 
-        // También puedes aplicar clases a elementos específicos
-        const elementsToToggle = document.querySelectorAll('.container-fluid');
-        elementsToToggle.forEach(element => {
-            element.classList.toggle('bg-light');
-            element.classList.toggle('bg-dark');
-            element.classList.toggle('text-light');
-            element.classList.toggle('text-dark');
-        });
+    const lightToggleButton = document.getElementById('light_mode');
+
+    const darkToggleButton = document.getElementById('dark_mode');
+
+    const htmlElement = document.documentElement;
+
+    const savedTheme = localStorage.getItem('theme');
+
+    // Establecer el tema según el estado almacenado (si existe)
+    if (savedTheme) {
+        htmlElement.setAttribute('data-bs-theme', savedTheme);
+        updateThemeClasses(savedTheme);
+    }
+    lightToggleButton.addEventListener('click', () => {
+        const theme = 'light';
+        htmlElement.setAttribute('data-bs-theme', theme);
+        localStorage.setItem('theme', theme);
+        updateThemeClasses(theme);
+    });
+
+    darkToggleButton.addEventListener('click', () => {
+        const theme = 'dark';
+        htmlElement.setAttribute('data-bs-theme', theme);
+        localStorage.setItem('theme', theme);
+        updateThemeClasses(theme);
     });
 });
-
+function updateThemeClasses(theme) {
+    const elementsToToggle = document.querySelectorAll('.container-fluid');
+    elementsToToggle.forEach(element => {
+        element.classList.remove('bg-light', 'text-dark', 'bg-dark', 'text-light');
+        element.classList.add('bg-' + theme, 'text-' + (theme === 'dark' ? 'light' : 'dark'));
+    });
+}

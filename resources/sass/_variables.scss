@@ -5,3 +5,29 @@ $body-bg: #f8fafc;
 $font-family-sans-serif: 'Nunito', sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
+
+[data-bs-theme=dark] {
+
+    color: var(--bs-primary-text-emphasis);
+    background-color: var(--bs-primary-bg-subtle);
+
+    .linkAdmin {
+        transition: color 0.3s ease; // Agrega una transición de color para suavizar el cambio.
+
+        &:hover {
+            color: white; // Cambia este valor al color que desees para los enlaces en estado hover.
+        }
+    }
+
+    #link_admin {
+        color: white;
+    }
+
+    .nav-item:hover .nav-link {
+        background-color: #bbbbbb;
+    }
+
+    .nav-link.active {
+        background-color: #bbbbbb;
+    }
+}

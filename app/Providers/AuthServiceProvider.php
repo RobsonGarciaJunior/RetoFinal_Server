@@ -38,5 +38,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('user_deletable', function (User $user, $targetUser) {
             return $targetUser->id !== 1;
         });
+        // Creamos una permision que no deje al usuario que solo tenga el rol de Administrador
+        Gate::define('see_user_panel', function (User $user) {
+            return $user->roles->contains(Role::IS_ADMIN) && $user->roles->count() !== 1;
+        });
     }
 }
