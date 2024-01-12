@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="height: 100%">
 
 <head>
     <meta charset="utf-8">
@@ -51,7 +51,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <div class="dropdown">
-                            <button class="btn dropdown-toggle text-white" type="button" id="modeDropDown"
+                            <button class="btn dropdown-toggle text-white" type="button" id="languageDropdown"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-translate"></i>
                                 {{ trans('app.language') }}
@@ -64,17 +64,17 @@
                             </ul>
                         </div>
                         <div class="dropdown">
-                            <button class="btn dropdown-toggle text-white" type="button" id="languageDropdown"
+                            <button class="btn dropdown-toggle text-white" type="button" id="modeDropDown"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-translate"></i>
-                                modo
                             </button>
-                            <ul class="dropdown-menu dropdown-menu-bottom" aria-labelledby="languageDropdown">
+                            <ul class="dropdown-menu dropdown-menu-bottom" aria-labelledby="modeDropDown">
                                 <li>
-                                    <button id="light_mode" class="dropdown-item">CLARO</button>
+                                    <button id="light_mode" class="dropdown-item"><i
+                                            class="bi bi-sun-fill"></i></button>
                                 </li>
                                 <li>
-                                    <button id="dark_mode" class="dropdown-item">OSCURO</button>
+                                    <button id="dark_mode" class="dropdown-item"><i
+                                            class="bi bi-moon-fill"></i></button>
                                 </li>
                             </ul>
                         </div>
@@ -121,4 +121,5 @@
         </main>
     </div>
 </body>
+
 </html>

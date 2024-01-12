@@ -34,7 +34,7 @@
                                                 class="btn btn-warning">
                                                 <i class="bi bi-pencil-square"></i>
                                             </a>
-                                            <button class="btn btn-danger" type="button"
+                                            <button class="btn btn-danger " type="button"
                                                 onclick="confirmDelete('deleteForm_{{ $degree->id }}')">
                                                 <i class="bi bi-trash3"></i>
                                             </button>

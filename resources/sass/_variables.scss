@@ -8,8 +8,8 @@ $line-height-base: 1.6;
 
 [data-bs-theme=dark] {
 
-    color: var(--bs-primary-text-emphasis);
-    background-color: var(--bs-primary-bg-subtle);
+    //    color: var(--bs-primary-text-emphasis);
+    //  background-color: var(--bs-primary-bg-subtle);
 
     .linkAdmin {
         transition: color 0.3s ease; // Agrega una transición de color para suavizar el cambio.
@@ -24,10 +24,16 @@ $line-height-base: 1.6;
     }
 
     .nav-item:hover .nav-link {
-        background-color: #bbbbbb;
+        background-color:rgba(0, 138, 171, 0.7);
+        font-weight: bold;
     }
 
     .nav-link.active {
-        background-color: #bbbbbb;
+        background-color: rgba(0, 138, 171, 0.7);
+        font-weight: bold;
+    }
+
+    .adminText {
+        color: white;
     }
 }

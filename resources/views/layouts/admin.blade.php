@@ -111,7 +111,7 @@
                                     <i class="bi bi-translate"></i>
                                     modo
                                 </button>
-                                <ul class="dropdown-menu dropdown-menu-bottom" aria-labelledby="languageDropdown">
+                                <ul class="dropdown-menu dropdown-menu-bottom" aria-labelledby="modeDropDown">
                                     <li>
                                         <button id="light_mode" class="dropdown-item">CLARO</button>
                                     </li>
@@ -168,4 +168,5 @@
         </div>
     </div>
 </body>
+
 </html>

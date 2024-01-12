@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     lightToggleButton.addEventListener('click', () => {
         const theme = 'light';
+        document.getElementById('modeDropDown').innerHTML = '<i class="bi bi-sun-fill">';
         htmlElement.setAttribute('data-bs-theme', theme);
         localStorage.setItem('theme', theme);
         updateThemeClasses(theme);
@@ -24,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     darkToggleButton.addEventListener('click', () => {
         const theme = 'dark';
+        document.getElementById('modeDropDown').innerHTML = '<i class="bi bi-moon-fill">';
         htmlElement.setAttribute('data-bs-theme', theme);
         localStorage.setItem('theme', theme);
         updateThemeClasses(theme);
@@ -35,4 +37,13 @@ function updateThemeClasses(theme) {
         element.classList.remove('bg-light', 'text-dark', 'bg-dark', 'text-light');
         element.classList.add('bg-' + theme, 'text-' + (theme === 'dark' ? 'light' : 'dark'));
     });
+    // Selecciona el elemento i dentro de modeDropDown
+    const iconElement = document.getElementById('modeDropDown');
+
+    // Cambia el contenido del elemento i según el tema
+    if (theme === 'dark') {
+        iconElement.innerHTML = '<i class="bi bi-moon-fill">';
+    } else {
+        iconElement.innerHTML = '<i class="bi bi-sun-fill">';
+    }
 }

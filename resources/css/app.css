@@ -1,10 +1,14 @@
-*{
-    min-height:100%;/* make sure it is at least as tall as the viewport */
-    position:relative;
+* {
+    min-height: 100%;
+    /* make sure it is at least as tall as the viewport */
+    position: relative;
 }
-body{
-    height:100%; /* force the BODY element to match the height of the HTML element */
+
+body {
+    height: 100%;
+    /* force the BODY element to match the height of the HTML element */
 }
+
 #logo {
     max-width: 125px;
     height: auto;
@@ -73,13 +77,16 @@ body{
 }
 
 .nav-item:hover .nav-link {
-    background-color: #e0f7fa;
-    color: rgb(60, 180, 229, 0.6);
+    background-color: rgba(0, 138, 171, 0.7);
+    font-weight: bold;
+}
+.nav-link.active {
+    background-color: rgba(0, 138, 171, 0.7);
+    font-weight: bold;
 }
 
-.nav-link.active {
-    background-color: #e0f7fa;
-    color: rgb(60, 180, 229, 0.6);
+.btn.dropdown-toggle:hover{
+    font-weight: bold;
 }
 
 .bi {
