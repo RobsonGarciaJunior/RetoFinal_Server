@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Degree;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,6 +19,8 @@ class DatabaseSeeder extends Seeder
             DegreeSeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
+            ChatSeeder::class,
+            MessageSeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();
 
