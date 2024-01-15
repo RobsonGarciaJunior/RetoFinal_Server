@@ -16,13 +16,13 @@ class ChatSeeder extends Seeder
     {
         DB::table('chats')->insert([
             'name' => 'Grupo1',
-            'type' => 1,
+            'type' => 0,
             'user_id' => 55,
             'created_at' => now(),
         ]);
         DB::table('chats')->insert([
             'name' => 'Grupo2',
-            'type' => 2,
+            'type' => 1,
             'user_id' => 58,
             'created_at' => now(),
         ]);
