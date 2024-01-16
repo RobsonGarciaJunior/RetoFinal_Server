@@ -40,8 +40,8 @@ class AuthController extends Controller
                 $user->DNI = $validatedData['DNI'];
                 $user->name = $validatedData['name'];
                 $user->surname = $validatedData['surname'];
-                $user->phoneNumber1 = $validatedData['phoneNumber1'];
-                $user->phoneNumber2 = $validatedData['phoneNumber2'];
+                $user->phone_number1 = $validatedData['phoneNumber1'];
+                $user->phone_number2 = $validatedData['phoneNumber2'];
                 $user->address = $validatedData['address'];
                 $user->photo = $validatedData['photo'];
                 $user->password = Hash::make($validatedData['newPassword']);
@@ -85,8 +85,8 @@ class AuthController extends Controller
             $user->DNI = $validatedData['DNI'];
             $user->name = $validatedData['name'];
             $user->surname = $validatedData['surname'];
-            $user->phoneNumber1 = $validatedData['phoneNumber1'];
-            $user->phoneNumber2 = $validatedData['phoneNumber2'];
+            $user->phone_number1 = $validatedData['phoneNumber1'];
+            $user->phone_number2 = $validatedData['phoneNumber2'];
             $user->address = $validatedData['address'];
             $user->photo = $validatedData['photo'];
             $result = $user->save();
@@ -164,8 +164,8 @@ class AuthController extends Controller
             'DNI' => $user->DNI,
             'name' => $user->name,
             'surname' => $user->surname,
-            'phoneNumber1' => $user->phoneNumber1,
-            'phoneNumber2' => $user->phoneNumber2,
+            'phone_number1' => $user->phone_number1,
+            'phone_number2' => $user->phone_number2,
             'address' => $user->address,
             'photo' => null,
             'FCTDUAL' => $user->FCTDUAL,

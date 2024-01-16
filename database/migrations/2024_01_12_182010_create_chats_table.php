@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('chats', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('type');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
