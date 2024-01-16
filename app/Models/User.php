@@ -73,4 +73,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Module::class, 'user_module', 'user_id', 'module_id')->withPivot('year_of_impartion');
     }
+    public function chats()
+    {
+        return $this->belongsToMany(Chat::class, 'user_chat', 'user_id', 'chat_id');
+    }
 }
