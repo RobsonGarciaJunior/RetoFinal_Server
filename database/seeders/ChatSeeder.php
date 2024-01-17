@@ -47,8 +47,12 @@ class ChatSeeder extends Seeder
         ->take(5)
         ->get();
         $user58 = User::find(58);
+        $user54 = User::find(54);
         if ($user58) {
             $users2->push($user58);
+        }
+        if ($user54) {
+            $users2->push($user54);
         }
         $chat2->users()->attach($users2);
     }
