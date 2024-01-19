@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
             $table->string('text');
-            $table->date('date')->default(Carbon::now());
+            $table->timestamp('date')->default(now());
             $table->unsignedBigInteger('chat_id');
             $table->foreign('chat_id')->references('id')->on('chats');
             $table->unsignedBigInteger('user_id');

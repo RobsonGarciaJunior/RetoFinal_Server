@@ -15,7 +15,6 @@ class MessageSeeder extends Seeder
     {
         DB::table('messages')->insert([
             'text' => 'Holaa',
-            'date' => '2024-01-12',
             'chat_id' => 1,
             'user_id' => 12,
             'created_at' => now(),
