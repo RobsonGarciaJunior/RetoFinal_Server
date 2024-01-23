@@ -38,7 +38,7 @@
                                     <div class="mb-3">
                                         <label for="phoneNumber1" class="form-label">{{ trans('app.phoneNumber1') }}</label>
                                         <div class="border rounded p-2">
-                                            <span>{{ $user->phoneNumber1 }}</span>
+                                            <span>{{ $user->phone_number1 }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -46,7 +46,7 @@
                                     <div class="mb-3">
                                         <label for="phoneNumber2" class="form-label">{{ trans('app.phoneNumber2') }}</label>
                                         <div class="border rounded p-2">
-                                            <span>{{ $user->phoneNumber2 }}</span>
+                                            <span>{{ $user->phone_number2 }}</span>
                                         </div>
                                     </div>
                                 </div>

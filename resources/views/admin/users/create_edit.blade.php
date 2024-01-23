@@ -48,14 +48,14 @@
                                     <div class="form-group mb-3">
                                         <label for="phoneNumber1" class="form-label">{{ trans('app.phoneNumber1') }}</label>
                                         <input type="number" class="form-control" id="phoneNumber1" name="phoneNumber1" required
-                                            value="{{ isset($user) ? $user->phoneNumber1 : '' }}" min="111111111" />
+                                            value="{{ isset($user) ? $user->phone_number1 : '' }}" min="111111111" />
                                     </div>
                                 </div>
                                 <div class="flex-fill me-3">
                                     <div class="form-group mb-3">
                                         <label for="phoneNumber2" class="form-label">{{ trans('app.phoneNumber2') }}</label>
                                         <input type="number" class="form-control" id="phoneNumber2" name="phoneNumber2" required
-                                            value="{{ isset($user) ? $user->phoneNumber2 : '' }}" min="111111111" />
+                                            value="{{ isset($user) ? $user->phone_number2 : '' }}" min="111111111" />
                                     </div>
                                 </div>
                             </div>

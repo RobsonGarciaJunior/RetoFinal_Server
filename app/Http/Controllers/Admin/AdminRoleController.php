@@ -54,7 +54,7 @@ class AdminRoleController extends Controller
         $users = $role->users()->orderBy('surname')
             ->orderBy('name')
             ->orderBy('email')
-            ->orderBy('phoneNumber1')->paginate(config('app.pagination.default'));
+            ->orderBy('phone_number1')->paginate(config('app.pagination.default'));
         return view('admin.roles.show', compact('role', 'users'));
     }
 

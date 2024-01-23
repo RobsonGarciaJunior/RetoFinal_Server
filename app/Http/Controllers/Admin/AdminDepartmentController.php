@@ -54,7 +54,7 @@ class AdminDepartmentController extends Controller
         $users = $department->users()->orderBy('surname')
         ->orderBy('name')
         ->orderBy('email')
-        ->orderBy('phoneNumber1')->paginate(config('app.pagination.default'));
+        ->orderBy('phone_Number1')->paginate(config('app.pagination.default'));
         return view('admin.departments.show', compact('department', 'users'));
     }
 

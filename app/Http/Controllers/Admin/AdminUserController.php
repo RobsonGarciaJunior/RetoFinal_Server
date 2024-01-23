@@ -23,7 +23,7 @@ class AdminUserController extends Controller
             })->orderBy('surname')
                 ->orderBy('name')
                 ->orderBy('email')
-                ->orderBy('phoneNumber1')
+                ->orderBy('phone_Number1')
                 ->paginate(config('app.pagination.default'));
         } else if ($request->has('students')) {
             $usersPaginated = User::whereHas('roles', function ($query) {
@@ -32,7 +32,7 @@ class AdminUserController extends Controller
             ->orderBy('surname')
             ->orderBy('name')
             ->orderBy('email')
-            ->orderBy('phoneNumber1')
+            ->orderBy('phone_Number1')
             ->paginate(config('app.pagination.default'));
         } else if ($request->has('personnel')) {
             $usersPaginated = User::whereDoesntHave('roles', function ($query) {
@@ -41,21 +41,21 @@ class AdminUserController extends Controller
             ->orderBy('surname')
             ->orderBy('name')
             ->orderBy('email')
-            ->orderBy('phoneNumber1')
+            ->orderBy('phone_Number1')
             ->paginate(config('app.pagination.default'));
         } elseif ($request->has('noRole')) {
             $usersPaginated = User::whereDoesntHave('roles')
                 ->orderBy('surname')
                 ->orderBy('name')
                 ->orderBy('email')
-                ->orderBy('phoneNumber1')
+                ->orderBy('phone_Number1')
                 ->paginate(config('app.pagination.default'));
 
         }else{
             $usersPaginated = User::orderBy('surname')
             ->orderBy('name')
             ->orderBy('email')
-            ->orderBy('phoneNumber1')
+            ->orderBy('phone_Number1')
             ->paginate(config('app.pagination.default'));
         }
 
@@ -82,8 +82,8 @@ class AdminUserController extends Controller
         $user->DNI = $request->DNI;
         $user->name = $request->name;
         $user->surname = $request->surname;
-        $user->phoneNumber1 = $request->phoneNumber1;
-        $user->phoneNumber2 = $request->phoneNumber2;
+        $user->phone_Number1 = $request->phoneNumber1;
+        $user->phone_Number2 = $request->phoneNumber2;
         $user->address = $request->address;
         $user->email = $request->email;
         $user->password = Hash::make('elorrieta00');
@@ -133,8 +133,8 @@ class AdminUserController extends Controller
         $user->DNI = $request->DNI;
         $user->name = $request->name;
         $user->surname = $request->surname;
-        $user->phoneNumber1 = $request->phoneNumber1;
-        $user->phoneNumber2 = $request->phoneNumber2;
+        $user->phone_Number1 = $request->phoneNumber1;
+        $user->phone_Number2 = $request->phoneNumber2;
         $user->address = $request->address;
         $user->email = $request->email;
         $user->department_id = $request->department_id;
