@@ -1,5 +1,4 @@
-@extends('layouts.admin')
-@section('content')
+
     <div class="container">
         <div class="row">
         <div class="col-md-12">
@@ -61,7 +60,7 @@
                             </div>
                         </div>
                         <div class="form-group mb-1 text-center">
-                            @if (isset($degree))
+                            @if (isset($module))
                                 <button type="submit" class="btn btn-warning">
                                     {{ trans('app.update') }}
                                 </button>
@@ -76,4 +75,3 @@
              </div>
         </div>
     </div>
-@endsection

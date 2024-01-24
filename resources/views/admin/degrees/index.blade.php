@@ -49,52 +49,12 @@
             </div>
         </div>
     </div>
-    <div class="modal" tabindex="-1" role="dialog" style="display:none" id="exampleModal">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Modal body text goes here.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="submitForm()">Save changes</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <script>
         function confirmDelete(formId) {
-            // Set the modal title and body based on your requirements
-            var modalTitle = "Delete Confirmation";
-            var modalBody = "Are you sure you want to delete this item?";
-
-            // Set the modal title and body
-            $('#exampleModal .modal-title').text(modalTitle);
-            $('#exampleModal .modal-body').html(modalBody);
-
-            // Show the modal
-            $('#exampleModal').modal('show');
-
-            // Set up a click event for the "Save changes" button in the modal
-            $('#exampleModal .modal-footer .btn-primary').click(function() {
+            var deleteConfirmation = "{{ trans('app.delete_module') }}";
+            if (confirm(deleteConfirmation)) {
                 document.getElementById(formId).submit();
-            });
-        }
-
-        function showModal(event) {
-            console.log("modal opened");
-            $('#exampleModal').modal('show');
-            event.preventDefault();
-        }
-
-        function submitForm() {
-            $('#new_group').submit();
+            }
         }
     </script>
     @if (session('message'))
