@@ -33,11 +33,21 @@ return [
     'no_user_department' => 'There are no users in this department',
     'no_user' => 'There are no users',
     'elorrieta_users' => "Elorrieta-Errekamari's users",
-    'delete_degree' => 'Are you sure that you want to delete this degree?',
-    'delete_department' => 'Are you sure that you want to delete this department?',
-    'delete_module' => 'Are you sure that you want to delete this module?',
-    'delete_role' => 'Are you sure that you want to delete this role?',
-    'delete_user' => 'Are you sure that you want to delete this user?',
+    'delete_degree_ask' => 'Are you sure that you want to delete this degree?',
+    'delete_degree' => 'Delete degree',
+
+    'delete_department_ask' => 'Are you sure that you want to delete this department?',
+    'delete_department' => 'Delete department',
+
+    'delete_module_ask' => 'Are you sure that you want to delete this module?',
+    'delete_module' => 'Delete module',
+
+    'delete_role_ask' => 'Are you sure that you want to delete this role?',
+    'delete_role' => 'Delete role',
+
+    'delete_user_ask' => 'Are you sure that you want to delete this user?',
+    'delete_user' => 'Delete user',
+
     'sendToTrash_user' => 'Are you sure that you want to send this user to trash?',
     'restore_user' => 'Are you sure that you want to restore this user?',
     'edit_degree' => 'Editing a degree',
@@ -53,6 +63,7 @@ return [
     'department' => 'Department',
     'create' => 'Create',
     'update' => 'Update',
+    'delete' => 'Delete',
     'hours' => 'Hours',
     'code' => 'Code',
     'total_students' => 'Total number of students',

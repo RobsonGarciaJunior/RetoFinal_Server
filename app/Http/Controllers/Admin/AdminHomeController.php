@@ -39,7 +39,8 @@ class AdminHomeController extends Controller
         $departments = Department::count();
         $degrees = Degree::count();
         $modules = Module::count();
+
         return view('admin/home',['students' => $students, 'personnel' => $personnel,'noRole' => $noRole,'departments' => $departments,'degrees' => $degrees, 'modules' => $modules]);
     }
-    
+
 }

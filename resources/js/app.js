@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
         updateThemeClasses(theme);
     });
 });
+
 function updateThemeClasses(theme) {
     const elementsToToggle = document.querySelectorAll('.container-fluid');
     elementsToToggle.forEach(element => {

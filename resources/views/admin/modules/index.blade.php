@@ -13,7 +13,11 @@
 
                         </div>
                     </div>
-                    <div id="alert"> asd asda </div>
+                    <div id="alert" class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                     <div class="card-body">
                         <ul class="list-group">
                             @foreach ($modules as $module)
@@ -31,18 +35,10 @@
                                                 class="btn btn-info">
                                                 <i class="bi bi-search"></i>
                                             </a>
-                                            <!--
-                                                                                <a href="{{ route('admin.modules.edit', ['module' => $module]) }}"
-                                                                                    class="btn btn-warning">
-                                                                                    <i class="bi bi-pencil-square"></i>
-                                                                                </a>
-                                                                                -->
-                                            <button data-path="{{ route('admin.modules.edit', ['module' => $module]) }}"
-                                                class="btn btn-warning" type="button"
+                                            <button class="btn btn-warning" type="button"
                                                 onclick="confirmEdit('deleteForm_{{ $module->id }}', '{{ route('admin.modules.edit', ['module' => $module]) }}')">
                                                 <i class="bi bi-pencil-square"></i>
                                             </button>
-
                                             <button class="btn btn-danger" type="button"
                                                 onclick="confirmDelete('deleteForm_{{ $module->id }}')">
                                                 <i class="bi bi-trash3"></i>
@@ -70,29 +66,24 @@
                     <p>Modal body text goes here.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" onclick="submitForm()">Delete</button>
+                    <button type="button" class="btn btn-danger" onclick="submitForm()">{{ trans('app.delete') }}</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
 
-
     <!-- MODAL CREAR -->
     <div class="modal" tabindex="-1" role="dialog" style="display:none" id="createModal">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
+                    <h4 class="mt-2"> {{ trans('app.create_module') }}</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <p>Modal body text goes here.</p>
                     <p id="modalRoute"></p> <!-- Display route here -->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" onclick="submitCreateForm()">Create</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -100,18 +91,14 @@
 
     <!-- MODAL EDITAR -->
     <div class="modal" tabindex="-1" role="dialog" style="display:none" id="editModal">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit Form</h5>
+                    <h4 class="mt-2">{{ trans('app.edit_module') }}</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="modalBody">
                     <!-- Form content will be loaded here -->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-warning" onclick="submitEditForm()">Edit</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -120,8 +107,8 @@
     <script>
         function confirmDelete(formId) {
             // Set the modal title and body based on your requirements
-            var modalTitle = "Delete Confirmation";
-            var modalBody = "Are you sure you want to delete this item?";
+            var modalTitle = "{{ trans('app.delete_module') }}";
+            var modalBody = "{{ trans('app.delete_module_ask') }}";
 
             // Set the modal title and body
             $('#deleteModal .modal-title').text(modalTitle);
@@ -131,9 +118,13 @@
             $('#deleteModal').modal('show');
 
             // Set up a click event for the "Save changes" button in the modal
-            $('#deleteModal .modal-footer .btn-primary').click(function() {
+            $('#deleteModal .modal-footer .btn-danger').click(function() {
                 document.getElementById(formId).submit();
             });
+        }
+
+        function submitForm() {
+            $('#new_group').submit();
         }
 
         function confirmEdit(formId, route) {
@@ -167,32 +158,6 @@
             });
         }
 
-        function submitEditForm() {
-            // Assuming your form has an ID of 'editForm'
-            var form = document.getElementById('editForm');
-
-            // Perform any additional client-side validation if needed
-
-            // Submit the form using AJAX
-            fetch(form.action, {
-                    method: form.method,
-                    body: new FormData(form)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Handle the success response as needed
-                    console.log(data);
-
-                    // Optionally, close the modal after successful submission
-                    $('#editModal').modal('hide');
-                })
-                .catch(error => {
-                    // Handle errors if needed
-                    console.error('Error:', error);
-                });
-        }
-
-
         function confirmCreate(route) {
             // Set the modal title and body based on your requirements
             var modalTitle = "Create Form";
@@ -220,24 +185,27 @@
                 }
             });
         }
-        /*
-                function showModal(event) {
-                    console.log("modal opened");
-                    $('#editModal').modal('show');
-                    event.preventDefault();
-                }
-        */
-        function submitForm() {
-            $('#new_group').submit();
-        }
     </script>
+
+    <script>
+        // Using JavaScript
+        //document.getElementById("alert").style.display = "none";
+
+        // Using jQuery
+        $("#alert").hide();
+    </script>
+
     @if (session('message'))
         <script>
-            //function showPopUp() {
-             //   alert('{{ session('message') }}');
-            //}
-            //window.onload = showPopUp;
-            $('#alert').html("{{session('message')}}" );
+            $(document).ready(function() {
+                // Display the alert with the session message
+                $('#alert').show().html("{{ session('message') }}");
+
+                // Set a timeout to hide the alert after a specific duration (e.g., 5000 milliseconds or 5 seconds)
+                setTimeout(function() {
+                    $('#alert').hide();
+                }, 1000); // Adjust the duration as needed
+            });
         </script>
     @endif
 @endsection

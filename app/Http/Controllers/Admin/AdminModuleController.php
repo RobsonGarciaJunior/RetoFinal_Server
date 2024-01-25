@@ -33,6 +33,10 @@ class AdminModuleController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'code' => 'unique:modules',
+        ]);
+
         $module = new Module();
         $module->name = $request->name;
         $module->hours = $request->hours;
@@ -72,6 +76,11 @@ class AdminModuleController extends Controller
      */
     public function update(Request $request, Module $module)
     {
+        // Validate unique code before updating
+        $request->validate([
+            'code' => 'unique:modules,code,' . $module->id,
+        ]);
+
         // Guarda los valores actuales antes de la actualización
         $previousValues = $module->getAttributes();
         $previousDegreesQuantity = $module->degrees->count();
@@ -83,7 +92,7 @@ class AdminModuleController extends Controller
         $module->degrees()->sync($request->input('degrees', []));
         $module->save();
 
-        // Obtiene los valores después de la actualización
+        // Obtiene los valores después de la actualizacióna
         $currentValues = $module->fresh()->getAttributes();
         $currentDegreesQuantity = $module->fresh()->degrees->count();
         // Compara los valores antes y después para determinar si hubo cambios

@@ -33,11 +33,21 @@ return [
     'no_user_department' => 'No hay usuarios en este departamento',
     'no_user' => 'No hay usuarios',
     'elorrieta_users' => 'Usuarios de Elorrieta-Errekamari',
-    'delete_degree' => '¿Estás seguro de que quieres eliminar el ciclo?',
-    'delete_department' => '¿Estás seguro de que quieres eliminar el departamento?',
-    'delete_module' => '¿Estás seguro de que quieres eliminar el módulo?',
-    'delete_role' => '¿Estás seguro de que quieres eliminar el rol?',
-    'delete_user' => '¿Estás seguro de que quieres eliminar el usuario?',
+    'delete_degree_ask' => '¿Estás seguro de que quieres eliminar el ciclo?',
+    'delete_degree' => 'Eliminar ciclo',
+
+    'delete_department_ask' => '¿Estás seguro de que quieres eliminar el departamento?',
+    'delete_department' => 'Eliminar departamento',
+
+    'delete_module_ask' => '¿Estás seguro de que quieres eliminar el módulo?',
+    'delete_module' => 'Eliminar módulo',
+
+    'delete_role_ask' => '¿Estás seguro de que quieres eliminar el rol?',
+    'delete_role' => 'Eliminar rol',
+
+    'delete_user_ask' => '¿Estás seguro de que quieres eliminar el usuario?',
+    'delete_user' => 'Eliminar usuario',
+
     'sendToTrash_user' => 'Estás seguro de que quieres mandar este usuario a la papelera?',
     'restore_user' => 'Estás seguro de que quieres restaurar el usuario?',
     'edit_degree' => 'Edición de ciclo',
@@ -53,6 +63,7 @@ return [
     'department' => 'Departmento',
     'create' => 'Crear',
     'update' => 'Actualizar',
+    'delete' => 'Eliminar',
     'hours' => 'Horas',
     'code' => 'Código',
     'total_students' => 'Número total de alumnos',
