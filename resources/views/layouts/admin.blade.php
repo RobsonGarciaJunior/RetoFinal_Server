@@ -114,21 +114,6 @@
                         <hr class="my-3">
                         <ul class="nav flex-column mb-auto">
                             <div class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" id="modeDropDown"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bi bi-translate"></i>
-                                    modo
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-bottom" aria-labelledby="modeDropDown">
-                                    <li>
-                                        <button id="light_mode" class="dropdown-item">CLARO</button>
-                                    </li>
-                                    <li>
-                                        <button id="dark_mode" class="dropdown-item">OSCURO</button>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="dropdown">
                                 <button class="btn dropdown-toggle" type="button" id="languageDropdown"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="bi bi-translate"></i>
@@ -141,6 +126,11 @@
                                     <li><a class="dropdown-item" href="{{ route('language', 'en') }}">
                                             {{ trans('app.english') }}</a></li>
                                 </ul>
+                            </div>
+                            <div class="dropdown">
+                                <button id="modeToggleButton" class="btn" type="button" aria-expanded="false">
+                                    <i id="modeIcon" class="bi bi-fun-fill"></i>
+                                </button>
                             </div>
                             @can('see_user_panel')
                                 <li class="nav-item">

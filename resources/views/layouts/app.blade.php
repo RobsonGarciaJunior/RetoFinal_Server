@@ -64,19 +64,9 @@
                             </ul>
                         </div>
                         <div class="dropdown">
-                            <button class="btn dropdown-toggle text-white" type="button" id="modeDropDown"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <button id="modeToggleButton" class="btn" type="button" aria-expanded="false">
+                                <i id="modeIcon" class="bi bi-fun-fill"></i>
                             </button>
-                            <ul class="dropdown-menu dropdown-menu-bottom" aria-labelledby="modeDropDown">
-                                <li>
-                                    <button id="light_mode" class="dropdown-item"><i
-                                            class="bi bi-sun-fill"></i></button>
-                                </li>
-                                <li>
-                                    <button id="dark_mode" class="dropdown-item"><i
-                                            class="bi bi-moon-fill"></i></button>
-                                </li>
-                            </ul>
                         </div>
                         <!-- Authentication Links -->
                         @guest
