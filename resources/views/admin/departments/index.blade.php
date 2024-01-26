@@ -1,5 +1,4 @@
 @extends('layouts.admin')
-
 @section('content')
     <div class="container">
         <div class="row">
@@ -8,10 +7,16 @@
                     <div class="card-header">
                         <div class="d-flex justify-content-between align-items-center">
                             <h4 class="mb-0">{{ trans('app.department_list') }}</h4>
-                            <a href="{{ route('admin.departments.create') }}" class="btn btn-success">
+                            <button onclick="confirmCreate('{{ route('admin.departments.create') }}')"
+                                class="btn btn-success">
                                 <i class="bi bi-plus-circle"></i>
-                            </a>
+                            </button>
                         </div>
+                    </div>
+                    <div id="alert" class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="card-body">
                         <ul class="list-group">

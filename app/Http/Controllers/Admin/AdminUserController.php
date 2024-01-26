@@ -29,20 +29,20 @@ class AdminUserController extends Controller
             $usersPaginated = User::whereHas('roles', function ($query) {
                 $query->where('id', 3);
             })
-            ->orderBy('surname')
-            ->orderBy('name')
-            ->orderBy('email')
-            ->orderBy('phone_Number1')
-            ->paginate(config('app.pagination.default'));
+                ->orderBy('surname')
+                ->orderBy('name')
+                ->orderBy('email')
+                ->orderBy('phone_Number1')
+                ->paginate(config('app.pagination.default'));
         } else if ($request->has('personnel')) {
-            $usersPaginated = User::whereDoesntHave('roles', function ($query) {
-                $query->where('id', 3);
+            $usersPaginated = User::whereHas('roles', function ($query) {
+                $query->where('id', 2);
             })
-            ->orderBy('surname')
-            ->orderBy('name')
-            ->orderBy('email')
-            ->orderBy('phone_Number1')
-            ->paginate(config('app.pagination.default'));
+                ->orderBy('surname')
+                ->orderBy('name')
+                ->orderBy('email')
+                ->orderBy('phone_Number1')
+                ->paginate(config('app.pagination.default'));
         } elseif ($request->has('noRole')) {
             $usersPaginated = User::whereDoesntHave('roles')
                 ->orderBy('surname')
@@ -50,13 +50,12 @@ class AdminUserController extends Controller
                 ->orderBy('email')
                 ->orderBy('phone_Number1')
                 ->paginate(config('app.pagination.default'));
-
-        }else{
+        } else {
             $usersPaginated = User::orderBy('surname')
-            ->orderBy('name')
-            ->orderBy('email')
-            ->orderBy('phone_Number1')
-            ->paginate(config('app.pagination.default'));
+                ->orderBy('name')
+                ->orderBy('email')
+                ->orderBy('phone_Number1')
+                ->paginate(config('app.pagination.default'));
         }
 
         $trashedCount = User::onlyTrashed()->count();
@@ -78,6 +77,12 @@ class AdminUserController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'phone_number1' => 'max:9|unique:users,phone_number1,',
+            'phone_number2' => 'max:9|unique:users,phone_number2,',
+        ]);
+
         $user = new User();
         $user->DNI = $request->DNI;
         $user->name = $request->name;
@@ -125,6 +130,11 @@ class AdminUserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $request->validate([
+            'phone_number1' => 'max:9|unique:users,phone_number1,' . $user->id,
+            'phone_number2' => 'max:9|unique:users,phone_number2,' . $user->id,
+        ]);
+
         // Guarda los valores actuales antes de la actualización
         $previousValues = $user->getAttributes();
         $previousRolesQuantity = $user->roles->count();
@@ -155,7 +165,7 @@ class AdminUserController extends Controller
             // El registro no ha sido actualizado
             $userUpdatedMessage = trans('app.user_updated_error');
         }
-        return redirect()->route('admin.users.index')->with('message', $userUpdatedMessage);;
+        return redirect()->route('admin.users.index')->with('message', $userUpdatedMessage);
     }
 
     public function restore($id)

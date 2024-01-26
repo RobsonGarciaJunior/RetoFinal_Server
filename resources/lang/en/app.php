@@ -48,8 +48,14 @@ return [
     'delete_user_ask' => 'Are you sure that you want to delete this user?',
     'delete_user' => 'Delete user',
 
-    'sendToTrash_user' => 'Are you sure that you want to send this user to trash?',
-    'restore_user' => 'Are you sure that you want to restore this user?',
+
+    'sendToTrash_user_ask' => 'Are you sure that you want to archive this user?',
+    'sendToTrash_user' => 'Archive user',
+
+
+    'restore_user_ask' => 'Are you sure that you want to delete this user?',
+    'restore_user' => 'Restore user',
+
     'edit_degree' => 'Editing a degree',
     'edit_department' => 'Editing a department',
     'edit_module' => 'Editing a module',
@@ -76,8 +82,13 @@ return [
     'no_students_module' => "There are no students enrolled in his module.",
     'home' => "Personal information of",
     'delete_forever' => 'Permanently delete',
+
+
     'restore' => 'Restore',
+    'archive' => 'Archive',
     'archived' => 'Archived',
+
+
     'welcome' => 'Welcome to Elorrieta-Errekamari!',
     'users_department' => 'This are the users that belong to this department',
     'users_role' => 'This are the users that have this role',

@@ -10,7 +10,6 @@
                             <button onclick="confirmCreate('{{ route('admin.modules.create') }}')" class="btn btn-success">
                                 <i class="bi bi-plus-circle"></i>
                             </button>
-
                         </div>
                     </div>
                     <div id="alert" class="alert alert-warning alert-dismissible fade show" role="alert">

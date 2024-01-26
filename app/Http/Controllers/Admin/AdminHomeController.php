@@ -33,9 +33,9 @@ class AdminHomeController extends Controller
         $personnel = User::whereHas('roles', function ($query) {
             $query->where('id', \App\Models\Role::IS_PROFESSOR);
         });
-        $noRole = User::whereHas('roles', function ($query) {
-            $query->where('id', \App\Models\Role::NO_ROLE);
-        });
+
+        $noRole = User::doesntHave('roles');
+
         $departments = Department::count();
         $degrees = Degree::count();
         $modules = Module::count();

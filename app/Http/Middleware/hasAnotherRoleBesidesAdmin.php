@@ -16,8 +16,12 @@ class hasAnotherRoleBesidesAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
+        // if (!auth()->check() || auth()->user()->roles->contains(Role::IS_ADMIN) && auth()->user()->roles->count() === 1) {
+        //     abort(code: 403);
+        // }
+
         if (!auth()->check() || auth()->user()->roles->contains(Role::IS_ADMIN) && auth()->user()->roles->count() === 1) {
-            abort(code: 403);
+            return redirect('/admin/home');
         }
         return $next($request);
     }

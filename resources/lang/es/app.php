@@ -48,8 +48,13 @@ return [
     'delete_user_ask' => '¿Estás seguro de que quieres eliminar el usuario?',
     'delete_user' => 'Eliminar usuario',
 
-    'sendToTrash_user' => 'Estás seguro de que quieres mandar este usuario a la papelera?',
-    'restore_user' => 'Estás seguro de que quieres restaurar el usuario?',
+    'sendToTrash_user_ask' => 'Estás seguro de que quieres archivar este usuario',
+    'sendToTrash_user' => 'Archivar user',
+
+
+    'restore_user_ask' => 'Estás seguro de que quieres restaurar el usuario?',
+    'restore_user' => 'Restaurar usuario',
+
     'edit_degree' => 'Edición de ciclo',
     'edit_department' => 'Edición de departamento',
     'edit_module' => 'Edición de módulo',
@@ -76,8 +81,11 @@ return [
     'no_students_module' => "No hay estudiantes matriculados en este módulo.",
     'home' => "Panel personal de",
     'delete_forever' => 'Borrar definitivamente',
+
     'restore' => 'Restaurar',
+    'archive' => 'Archivar',
     'archived'=> 'Archivados',
+
     'welcome' => '¡Bienvenid@ a Elorrieta-Errekamari!',
     'users_department' => 'Estos son los usuarios que pertenecen al departamento',
     'users_role' => 'Estos son los usuarios que tienen este rol',

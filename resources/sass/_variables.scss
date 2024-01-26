@@ -24,7 +24,7 @@ $line-height-base: 1.6;
     }
 
     .nav-item:hover .nav-link {
-        background-color:rgba(0, 138, 171, 0.7);
+        background-color: rgba(0, 138, 171, 0.7);
         font-weight: bold;
     }
 
@@ -35,5 +35,14 @@ $line-height-base: 1.6;
 
     .adminText {
         color: white;
+    }
+
+    .page-link.active,
+    .active>.page-link {
+        background-color: rgba(60, 180, 229, 1.0) !important;
+    }
+
+    .page-link {
+        color: white !important;
     }
 }

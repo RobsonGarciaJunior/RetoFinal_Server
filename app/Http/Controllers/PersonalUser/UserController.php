@@ -15,7 +15,7 @@ class UserController extends Controller
          $usersPaginated = User::orderBy('surname')
         ->orderBy('name')
         ->orderBy('email')
-        ->orderBy('phoneNumber1')
+        ->orderBy('phone_number1')
         ->paginate(config('app.pagination.default'));
 
     return view('users.index', compact('usersPaginated'));

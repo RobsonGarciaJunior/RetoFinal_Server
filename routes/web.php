@@ -29,7 +29,7 @@ Auth::routes();
 
 Route::get('/', function () {
     return view('welcome');
-})->middleware('translate');
+})->middleware(['translate', 'has_not_only_admin']);
 
 //Ruta para cambiar idioma
 Route::get('/lang/{language}', function ($language) {

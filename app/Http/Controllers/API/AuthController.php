@@ -6,11 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Password;
-use Illuminate\Auth\Events\PasswordReset;
-use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -148,7 +144,7 @@ class AuthController extends Controller
         ]);
 
         $user = User::where('email', $request->email)->first();
-        if (!$user || !Hash::check($request->password, $user->password)) {
+        if (!$user || !password_verify($request->password, $user->password)) {
             return response()->json([
                 'message' => ['Username or password incorrect'],
             ])->setStatusCode(Response::HTTP_UNAUTHORIZED);
