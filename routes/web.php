@@ -29,7 +29,7 @@ Auth::routes();
 
 Route::get('/', function () {
     return view('welcome');
-})->middleware(['translate', 'has_not_only_admin']);
+})->middleware(['translate', 'admin.redirect']);
 
 //Ruta para cambiar idioma
 Route::get('/lang/{language}', function ($language) {
@@ -65,20 +65,19 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resources([
             'modules' => AdminModuleController::class,
         ]);
-
     })->middleware('translate');
 
     //ROUTES FOR THE USER
     Route::group([
-        'middleware' => 'has_not_only_admin'], function () {
-            Route::get('/home', [App\Http\Controllers\PersonalUser\HomeController::class, 'index'])->name('home');
-            Route::get('/users', [App\Http\Controllers\PersonalUser\UserController::class, 'index'])->name('users.index');
+        'middleware' => 'has_not_only_admin'
+    ], function () {
+        Route::get('/home', [App\Http\Controllers\PersonalUser\HomeController::class, 'index'])->name('home');
+        Route::get('/users', [App\Http\Controllers\PersonalUser\UserController::class, 'index'])->name('users.index');
+        Route::group(['middleware' => ['is_not_student']], function () {
+            // Your protected routes go here
             Route::get('/degrees', [App\Http\Controllers\PersonalUser\DegreeController::class, 'index'])->name('degrees.index');
             Route::get('/departments', [App\Http\Controllers\PersonalUser\DepartmentController::class, 'index'])->name('departments.index');
             Route::get('/departments/{department}', [App\Http\Controllers\PersonalUser\DepartmentController::class, 'show'])->name('departments.show');
-
-        })->middleware('translate');
+        });
+    })->middleware('translate');
 });
-
-
-

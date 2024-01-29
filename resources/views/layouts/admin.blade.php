@@ -111,7 +111,6 @@
                                 </a>
                             </li>
                         </ul>
-
                         <hr class="my-3">
                         <ul class="nav flex-column mb-auto">
                             <div class="dropdown">

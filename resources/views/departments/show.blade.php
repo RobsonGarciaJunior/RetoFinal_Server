@@ -21,7 +21,7 @@
                     ->orderBy('surname')
                     ->orderBy('name')
                     ->orderBy('email')
-                    ->orderBy('phoneNumber1')
+                    ->orderBy('phone_number1')
                     ->paginate(config('app.pagination.default'));
             @endphp
                 @forelse($users as $user)

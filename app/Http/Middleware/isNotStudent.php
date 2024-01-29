@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\Role;
 
-class hasAnotherRoleBesidesAdmin
+class isNotStudent
 {
     /**
      * Handle an incoming request.
@@ -16,9 +16,14 @@ class hasAnotherRoleBesidesAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!auth()->check() || auth()->user()->roles->contains(Role::IS_ADMIN) && auth()->user()->roles->count() === 1) {
-            abort(code: 403);
+        $user = auth()->user();
+
+        // Check if the user is authenticated and not a student
+        if ($user && !$user->roles->contains(Role::IS_STUDENT)) {
+            return $next($request);
         }
-        return $next($request);
+        // If the user is not authenticated or is a student, deny access
+        //abort(403);
+        return redirect('/home');
     }
 }

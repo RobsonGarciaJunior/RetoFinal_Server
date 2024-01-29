@@ -20,15 +20,15 @@ body {
 }
 
 .nav-item .nav-link {
-    color: white
+    color: black
 }
 
 .nav-item .nav-link:hover {
-    color: #211261;
+    font-weight: bold;
 }
 
 .nav-item .nav-link:active {
-    color: #211261;
+    color: #12613d;
 }
 
 .card .card-header {

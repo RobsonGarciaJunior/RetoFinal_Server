@@ -51,12 +51,12 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <div class="dropdown">
-                            <button class="btn dropdown-toggle text-white" type="button" id="languageDropdown"
+                            <button class="btn dropdown-toggle" type="button" id="languageDropdown"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-translate"></i>
                                 {{ trans('app.language') }}
                             </button>
-                            <ul class="dropdown-menu dropdown-menu-bottom" aria-labelledby="languageDropdown">
+                            <ul class="dropdown-menu dropdown-menu-bottom" aria-labelledby="languageDropdown"º>
                                 <li><a class="dropdown-item"
                                         href="{{ route('language', 'es') }}">{{ trans('app.spanish') }}</a></li>
                                 <li><a class="dropdown-item"
@@ -86,10 +86,12 @@
                                         <i class="bi bi-person-circle"></i>
                                         {{ trans('app.profile') }}
                                     </a>
-                                    <a class="dropdown-item" href={{ 'admin/home' }}>
-                                        <i class="bi bi-wrench-adjustable-circle"></i>
-                                        {{ trans('app.admin_panel') }}
-                                    </a>
+                                    @can('see_user_panel')
+                                        <a class="dropdown-item" href={{ 'admin/home' }}>
+                                            <i class="bi bi-wrench-adjustable-circle"></i>
+                                            {{ trans('app.admin_panel') }}
+                                        </a>
+                                    @endcan
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();">

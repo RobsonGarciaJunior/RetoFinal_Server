@@ -73,5 +73,8 @@ class Kernel extends HttpKernel
         'is_admin'=>\App\Http\Middleware\isAdminMiddleware::class,
         'has_not_only_admin'=>\App\Http\Middleware\hasAnotherRoleBesidesAdmin::class,
         'translate' => \App\Http\Middleware\LocaleMiddleware::class,
+        'admin.redirect' => \App\Http\Middleware\AdminRedirectMiddleware::class,
+        'is_not_student' => \App\Http\Middleware\isNotStudent::class,
+
     ];
 }

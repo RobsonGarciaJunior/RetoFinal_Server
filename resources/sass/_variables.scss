@@ -23,6 +23,10 @@ $line-height-base: 1.6;
         color: white;
     }
 
+    .nav-item .nav-link {
+        color: white
+    }
+
     .nav-item:hover .nav-link {
         background-color: rgba(0, 138, 171, 0.7);
         font-weight: bold;
