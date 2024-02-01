@@ -11,7 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::table('user_chat', function (Blueprint $table) {
+            $table->timestamp('joined')->default(now());
+            $table->timestamp('deleted')->nullable();
+        });
     }
 
     /**
@@ -19,6 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('user_chat', function (Blueprint $table) {
+            $table->dropColumn('joined');
+            $table->dropColumn('deleted');
+        });
     }
 };

@@ -23,13 +23,14 @@ class ChatSeeder extends Seeder
             'user_id' => 55,
             'created_at' => now(),
         ]);
+
         $chat1 = Chat::find(1);
         $users = User::where('id', '<>', 1)
         ->inRandomOrder()
         ->take(5)
         ->get();
         // Agregar el usuario con ID 55 a la colección
-        $user55 = User::find(55);
+        $user55 = User::find(55);   
         if ($user55) {
             $users->push($user55);
         }
@@ -41,6 +42,7 @@ class ChatSeeder extends Seeder
             'user_id' => 58,
             'created_at' => now(),
         ]);
+
         $chat2 = Chat::find(2);
         $users2 = User::where('id', '<>', 1)
         ->inRandomOrder()
@@ -51,6 +53,7 @@ class ChatSeeder extends Seeder
         if ($user58) {
             $users2->push($user58);
         }
+
         if ($user54) {
             $users2->push($user54);
         }
