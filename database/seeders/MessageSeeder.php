@@ -17,6 +17,7 @@ class MessageSeeder extends Seeder
             'text' => 'Holaa',
             'chat_id' => 1,
             'user_id' => 12,
+            'type' => "TEXT",
             'created_at' => now(),
         ]);
     }
