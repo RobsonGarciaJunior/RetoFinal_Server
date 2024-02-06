@@ -34,9 +34,13 @@ services:
             MYSQL_USER: '${DB_USERNAME}'
             MYSQL_PASSWORD: '${DB_PASSWORD}'
             MYSQL_ALLOW_EMPTY_PASSWORD: 1
+            MYSQL_LOG_BIN: 0  # Disable binary logging
         volumes:
             - 'sail-mysql:/var/lib/mysql'
             - './vendor/laravel/sail/database/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
+            - './database/privileges.sql:/docker-entrypoint-initdb.d/11-privileges.sql'
+            - './database/grantTriggers.sql:/docker-entrypoint-initdb.d/12-grantTriggers.sql'
+
         networks:
             - sail
         healthcheck:
