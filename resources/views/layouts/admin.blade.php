@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ trans('app.admin_panel') }}</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('img/logo.png') }}" />
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -62,6 +63,16 @@
                     </div>
                     <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
                         <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a id="link_admin"
+                                    class="nav-link d-flex align-items-center gap-2 {{ Request::is('admin/home*') ? 'active' : '' }}"
+                                    aria-current="page" href="{{ route('admin.home.index') }}">
+                                    <span class="material-symbols-outlined">
+                                        home
+                                    </span>
+                                    {{ trans('app.main_panel') }}
+                                </a>
+                            </li>
                             <li class="nav-item">
                                 <a id="link_admin"
                                     class="nav-link d-flex align-items-center gap-2 {{ Request::is('admin/degrees*') ? 'active' : '' }}"

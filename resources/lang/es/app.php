@@ -35,6 +35,8 @@ return [
     'elorrieta_users' => 'Usuarios de Elorrieta-Errekamari',
     'delete_degree_ask' => '¿Estás seguro de que quieres eliminar el ciclo?',
     'delete_degree' => 'Eliminar ciclo',
+    'main_panel' => 'Panel Principal',
+
 
     'delete_department_ask' => '¿Estás seguro de que quieres eliminar el departamento?',
     'delete_department' => 'Eliminar departamento',

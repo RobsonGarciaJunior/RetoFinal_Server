@@ -35,6 +35,8 @@ return [
     'elorrieta_users' => "Elorrieta-Errekamari's users",
     'delete_degree_ask' => 'Are you sure that you want to delete this degree?',
     'delete_degree' => 'Delete degree',
+    'main_panel' => 'Principal Panel',
+
 
     'delete_department_ask' => 'Are you sure that you want to delete this department?',
     'delete_department' => 'Delete department',
