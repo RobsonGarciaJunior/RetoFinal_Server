@@ -33,11 +33,14 @@ class AdminModuleController extends Controller
      */
     public function store(Request $request)
     {
+        $module = new Module();
+
         $request->validate([
-            'code' => 'unique:modules',
+            'code' => 'required|unique:modules,code',
+            'name' => 'required|unique:modules,name',
+            'hours' => 'required|numeric|min:0',
         ]);
 
-        $module = new Module();
         $module->name = $request->name;
         $module->hours = $request->hours;
         $module->code = $request->code;
@@ -78,7 +81,7 @@ class AdminModuleController extends Controller
     {
         // Validate unique code before updating
         $request->validate([
-            'code' => 'unique:modules,code,' . $module->id,
+            'code' => 'unique:modules,code,',
         ]);
 
         // Guarda los valores actuales antes de la actualización

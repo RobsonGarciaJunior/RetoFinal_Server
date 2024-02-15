@@ -33,6 +33,12 @@ class AdminDepartmentController extends Controller
     public function store(Request $request)
     {
         $department = new Department();
+
+        // Validate unique code before storing
+        $request->validate([
+            'name' => 'unique:departments,name,',
+        ]);
+
         $department->name = $request->name;
         $department->save();
         $departmentCreatedMessage = '';
@@ -52,9 +58,9 @@ class AdminDepartmentController extends Controller
     public function show(Department $department)
     {
         $users = $department->users()->orderBy('surname')
-        ->orderBy('name')
-        ->orderBy('email')
-        ->orderBy('phone_Number1')->paginate(config('app.pagination.default'));
+            ->orderBy('name')
+            ->orderBy('email')
+            ->orderBy('phone_Number1')->paginate(config('app.pagination.default'));
         return view('admin.departments.show', compact('department', 'users'));
     }
 
@@ -71,6 +77,9 @@ class AdminDepartmentController extends Controller
      */
     public function update(Request $request, Department $department)
     {
+        $request->validate([
+            'name' => 'unique:departments,name,',
+        ]);
         // Guarda los valores actuales antes de la actualización
         $previousValues = $department->getAttributes();
 

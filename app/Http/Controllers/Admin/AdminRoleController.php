@@ -33,6 +33,11 @@ class AdminRoleController extends Controller
     public function store(Request $request)
     {
         $role = new Role();
+        // Validate unique code before storing
+        $request->validate([
+            'name' => 'unique:roles,name,',
+        ]);
+
         $role->name = $request->name;
         $role->save();
         $roleCreatedMessage = '';
@@ -71,6 +76,10 @@ class AdminRoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
+        // Validate unique code before storing
+        $request->validate([
+            'name' => 'unique:roles,name,',
+        ]);
         // Guarda los valores actuales antes de la actualización
         $previousValues = $role->getAttributes();
 

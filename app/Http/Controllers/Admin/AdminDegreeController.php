@@ -36,6 +36,10 @@ class AdminDegreeController extends Controller
     public function store(Request $request)
     {
         $degree = new Degree();
+        // Validate unique code before updating
+        $request->validate([
+            'name' => 'unique:degrees,name,',
+        ]);
         $degree->name = $request->name;
         $degree->department_id = $request->department_id;
         $degree->save();
@@ -73,6 +77,9 @@ class AdminDegreeController extends Controller
      */
     public function update(Request $request, Degree $degree)
     {
+        $request->validate([
+            'name' => 'unique:degrees,name,',
+        ]);
         // Guarda los valores actuales antes de la actualización
         $previousValues = $degree->getAttributes();
         $previousModulesQuantity = $degree->modules->count();
